@@ -56,8 +56,8 @@ export default function Home({
         <FeedBacks depositions={depositions} />
         <Diagnosis diagnosis={diagnostico} />
         <OurMission mission={missao} />
-        <SectionPortifolio portifolioContent={portifolio} />
-        {/* <SectionFromAccessPosts postContent={postContent} /> */}
+        {/* <SectionPortifolio portifolioContent={portifolio} /> */}
+        <SectionFromAccessPosts postContent={postContent} />
         <OurPartners partners={parceiros} />
       </Layout>
     </>
@@ -68,31 +68,28 @@ export const getStaticProps: GetStaticProps = async () => {
   const { data } = await api.get(`secao-inicial`);
   const [content] = data;
 
-  // console.log(data);
-  // console.log(teste);
+  const prismic = getPrismicClient();
+  const responsePrismic = await prismic.query(
+    [Prismic.Predicates.at("document.type", "post")],
+    {
+      pageSize: 1,
+      orderings: "[document.last_publication_date desc]",
+    }
+  );
 
-  // const prismic = getPrismicClient();
-  // const responsePrismic = await prismic.query(
-  //   [Prismic.Predicates.at("document.type", "post")],
-  //   {
-  //     pageSize: 1,
-  //     orderings: "[document.last_publication_date desc]",
-  //   }
-  // );
-
-  // const postsFormatted = responsePrismic.results.map((post) => ({
-  //   id: post.id,
-  //   slug: post.uid,
-  //   title: post.data.titulo,
-  //   author: post.data.autor,
-  //   role: post.data.funcao,
-  //   profile: {
-  //     url: post.data.perfil_do_autor.url,
-  //     width: post.data.perfil_do_autor.dimensions.width,
-  //     height: post.data.perfil_do_autor.dimensions.height,
-  //     alt: post.data.perfil_do_autor.alt,
-  //   },
-  // }));
+  const postsFormatted = responsePrismic.results.map((post) => ({
+    id: post.id,
+    slug: post.uid,
+    title: post.data.titulo,
+    author: post.data.autor,
+    role: post.data.funcao,
+    profile: {
+      url: post.data.perfil_do_autor.url,
+      width: post.data.perfil_do_autor.dimensions.width,
+      height: post.data.perfil_do_autor.dimensions.height,
+      alt: post.data.perfil_do_autor.alt,
+    },
+  }));
 
   const {
     contadores,
@@ -122,7 +119,7 @@ export const getStaticProps: GetStaticProps = async () => {
       parceiros,
       portifolio: portifolio[0],
       services,
-      // postContent: postsFormatted,
+      postContent: postsFormatted,
     },
     revalidate: 60 * 60 * 8,
   };

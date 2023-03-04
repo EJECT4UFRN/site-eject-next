@@ -61,7 +61,7 @@ export function ContentMobile({ depositions }: FeedBacksProps) {
           className={`${isSelectedTwo && "selected"}`}
         >
           <img
-            src={`https://res.cloudinary.com/eject/${second.imagem}`}
+            src={second.imagem}
             alt="profile"
           />
         </button>
@@ -70,7 +70,7 @@ export function ContentMobile({ depositions }: FeedBacksProps) {
           className={`${isSelectedThree && "selected"}`}
         >
           <img
-            src={`https://res.cloudinary.com/eject/${three.imagem}`}
+            src={three.imagem}
             alt="profile"
           />
         </button>
