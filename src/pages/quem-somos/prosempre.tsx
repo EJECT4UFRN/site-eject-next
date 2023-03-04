@@ -4,6 +4,8 @@ import { Layout } from "../../components/Layout";
 import { CountDown } from "../../components/CountDown";
 import { VideoWindow } from "../../components/VideoWindow";
 import { LogoProSempre } from "../../components/LogoProSempre";
+import { FinishedSubscribe } from "../../styles/templates/Inscricao";
+import { isBefore, getDay } from "date-fns";
 
 import { NextSeo } from "next-seo";
 
@@ -31,6 +33,11 @@ interface ProSempreProps {
 }
 
 export default function ProSempre({ dataPage }: ProSempreProps) {
+  const dateInit = new Date(dataPage.countDateInicio);
+  const countNow = new Date();
+  const now = new Date().getTime();
+  const dateFinish = new Date(dataPage.countDate).getTime();
+
   return (
     <>
       <NextSeo
@@ -75,16 +82,29 @@ export default function ProSempre({ dataPage }: ProSempreProps) {
               }
               lastText={"Ajudar a impactar positivamente a sociedade"}
             >
-              <Buttons>
-                <Link href={dataPage.link_formulario_inscricao}>
-                  <a target="_blank">FAZER INSCRIÇÃO</a>
-                </Link>
-                <Link href={dataPage.edital}>
-                  <a download target="_blank">
-                    BAIXAR EDITAL
-                  </a>
-                </Link>
-              </Buttons>
+              {dateFinish > now && isBefore(dateInit, countNow) ? (
+                <Buttons>
+                  <Link href={dataPage.link_formulario_inscricao}>
+                    <a target="_blank">FAZER INSCRIÇÃO</a>
+                  </Link>
+                  <Link href={dataPage.edital}>
+                    <a download target="_blank">
+                      BAIXAR EDITAL
+                    </a>
+                  </Link>
+                </Buttons>
+              ) : (
+                <Buttons>
+                  <Link href="../inscricoes-finalizadas">
+                    <a target="_self">FAZER INSCRIÇÃO</a>
+                  </Link>
+                  <Link href="../inscricoes-finalizadas">
+                    <a download target="_self">
+                      BAIXAR EDITAL
+                    </a>
+                  </Link>
+                </Buttons>
+              )}
             </SectionWhy>
           </div>
         </Container>
@@ -101,6 +121,6 @@ export const getStaticProps: GetStaticProps = async () => {
     props: {
       dataPage: data[0],
     },
-    revalidate: (60 * 10)/2, // 5 min
+    revalidate: (60 * 10) / 2, // 5 min
   };
 };
