@@ -6,9 +6,9 @@ export function VideoWindow() {
       <iframe
         src="https://www.youtube.com/embed/O_ioE-7upWo"
         title="YouTube video player"
-        frameborder = "true"
+        frameBorder="0"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        allowfullscreen
+        allowFullScreen
       ></iframe>
     </Container>
   );
