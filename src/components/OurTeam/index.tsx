@@ -7,6 +7,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 // Import Swiper styles
 import "swiper/swiper.min.css";
 import "swiper/components/navigation/navigation.min.css";
+// import "swiper/css";
 
 // import Swiper core and required modules
 import SwiperCore, { Pagination, Navigation } from "swiper/core";
@@ -20,7 +21,7 @@ type TeamProps = {
   team: {
     nome: string;
     id: number;
-    foto: number;
+    foto: string;
     cargo: string;
   }[];
 };
@@ -31,7 +32,7 @@ export function OurTeam({ team }: TeamProps) {
       nextEl: ".next",
       prevEl: ".prev",
     },
-    spaceBetween: 20,
+    spaceBetween: 40,
     loop: true,
     grabCursor: true,
   };
@@ -39,29 +40,60 @@ export function OurTeam({ team }: TeamProps) {
   return (
     <Container>
       <img src="/svgs/triangles-white.svg" alt="Triangulos" />
-      <h1>Nosso time</h1>
-      <SwiperContainer>
+      <div>
+        <h1>Nosso time</h1>
+      </div>
+
+      <div id="contenher">
+        {team.map((card) => (
+          <div className="card-membros container">
+            <Image
+              src={card.foto}
+              alt={`Foto do(a) ${card.nome}`}
+              width={250}
+              height={250}
+              quality={100}
+              className="image"
+            />
+            <div className="overlay">
+              <div className="text">
+                <h3>{card.nome}</h3>
+                <p>{card.cargo}</p>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <SwiperContainer className="SwiperContainer">
         <Swiper {...params} slidesPerView="auto" className="mySwiper">
           {team.map((card) => (
-            <SwiperSlide className="SwiperSlide" key={card.id}>
-              <CardSwiper>
+            <SwiperSlide className="SwiperSlide">
+              <CardSwiper className="card-membros container">
                 <Image
-                  src={`https://res.cloudinary.com/eject/${card.foto}`}
+                  src={card.foto}
                   alt={`Foto do(a) ${card.nome}`}
                   width={320}
                   height={320}
                   quality={100}
                 />
-                <h3>{card.nome}</h3>
-                <p>{card.cargo}</p>
+                <div className="overlay">
+                  <div className="text">
+                    <h3>{card.nome}</h3>
+                    <p>{card.cargo}</p>
+                  </div>
+                </div>
               </CardSwiper>
             </SwiperSlide>
           ))}
         </Swiper>
+
         <div className="btn next"></div>
         <div className="btn prev"></div>
       </SwiperContainer>
+
       <img src="/svgs/triangles-white.svg" alt="" />
     </Container>
   );
 }
+

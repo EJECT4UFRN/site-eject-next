@@ -26,6 +26,7 @@ interface ProSempreProps {
     video: null;
     edital: string;
     whats: string;
+    link_formulario_inscricao: string;
   };
 }
 
@@ -75,7 +76,7 @@ export default function ProSempre({ dataPage }: ProSempreProps) {
               lastText={"Ajudar a impactar positivamente a sociedade"}
             >
               <Buttons>
-                <Link href="/quem-somos/inscricao">
+                <Link href={dataPage.link_formulario_inscricao}>
                   <a target="_blank">FAZER INSCRIÇÃO</a>
                 </Link>
                 <Link href={dataPage.edital}>

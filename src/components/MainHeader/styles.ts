@@ -85,24 +85,24 @@ export const Nav = styled.nav<DropdownProps>`
       transition: 0.3s ease;
 
       &:nth-child(4) {
-        &:after {
-          content: '';
-          position: absolute;
-          top: 26%;
-          right: -6px;
+        // &:after {
+        //   content: '';
+        //   position: absolute;
+        //   top: 26%;
+        //   right: -6px;
 
-          transform: rotate(45deg);
+        //   transform: rotate(45deg);
 
-          border-radius: 1px;
+        //   border-radius: 1px;
 
-          transition: 0.3s ease;
+        //   transition: 0.3s ease;
 
-          width: 5px;
-          height: 5px;
-          border-bottom: 2.5px solid ${({ theme }) => theme.colors.gray300};
-          border-right: 2.5px solid ${({ theme }) => theme.colors.gray300};
-          border-radius: 2px;
-        }
+        //   width: 5px;
+        //   height: 5px;
+        //   border-bottom: 2.5px solid ${({ theme }) => theme.colors.gray300};
+        //   border-right: 2.5px solid ${({ theme }) => theme.colors.gray300};
+        //   border-radius: 2px;
+        // }
         &:hover {
           opacity: 1;
           &:after {
@@ -118,7 +118,7 @@ export const Nav = styled.nav<DropdownProps>`
         }
       }
       &:nth-child(5) {
-        margin-left: 1.2rem;
+        // margin-left: 1.2rem;
       }
       &:hover {
         opacity: 0.8;
@@ -201,7 +201,7 @@ export const Nav = styled.nav<DropdownProps>`
       }
       .link4 {
         &:before {
-          left: 1px;
+          left: 16px;
         }
       }
       .link5 {

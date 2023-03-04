@@ -21,6 +21,9 @@ export const Card = styled.svg`
       opacity: 0;
     }
   }
+  .front1{
+    border-radius:1rem;
+  }
   @media (max-width: 960px) {
     transform: scale(1.15) translateY(30px);
   }

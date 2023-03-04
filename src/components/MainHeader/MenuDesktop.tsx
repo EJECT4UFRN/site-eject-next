@@ -1,36 +1,43 @@
 import Link from "next/link";
-import { MenuDesktopContainer, Nav, Dropdown } from "./styles";
+import { MenuDesktopContainer, Nav } from "./styles";
 import { LinkNext } from "../Link";
 import { useEffect, useState } from "react";
 
 interface MenuDesktopProps {
-  isDrop: boolean;
-  handleDropDown: () => void;
-  handleMouseEvents: {
-    enter: () => void;
-    leave: () => void;
-  };
   itemsMenu: {
     MenuItems: {
       title: string;
       url: string;
-      dropdown: boolean;
-    }[];
-    DropdownItems?: {
-      title: string;
-      url: string;
-    }[];
+    }[]
   };
 }
 
+// interface MenuDesktopProps {
+//   isDrop: boolean;
+//   handleDropDown: () => void;
+//   handleMouseEvents: {
+//     enter: () => void;
+//     leave: () => void;
+//   };
+//   itemsMenu: {
+//     MenuItems: {
+//       title: string;
+//       url: string;
+//       dropdown: boolean;
+//     }[];
+//     DropdownItems?: {
+//       title: string;
+//       url: string;
+//     }[];
+//   };
+// }
+
+
 export function MenuDesktop({
-  isDrop,
-  handleDropDown,
-  handleMouseEvents,
-  itemsMenu,
+  itemsMenu
 }: MenuDesktopProps) {
-  const { MenuItems, DropdownItems } = itemsMenu;
-  const [home, whoWeAre, solution, contents, client] = MenuItems;
+  const { MenuItems } = itemsMenu;
+  const [home, whoWeAre, solution, blog] = MenuItems;
 
   const [animation, setAnimation] = useState(false);
 
@@ -66,6 +73,12 @@ export function MenuDesktop({
             </LinkNext>
           </li>
           <li>
+            <LinkNext href={blog.url}>
+              <a className="link4">{blog.title}</a>
+            </LinkNext>
+          </li>
+
+          {/* <li>
             <>
               <a className="cursor link4" onClick={handleDropDown}>
                 {contents.title}
@@ -87,7 +100,8 @@ export function MenuDesktop({
                 })}
               </Dropdown>
             </>
-          </li>
+          </li> */}
+
           <li>
             <LinkNext href="/clientes">
               <a className="link5">Clientes</a>

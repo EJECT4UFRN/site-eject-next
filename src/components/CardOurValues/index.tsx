@@ -9,10 +9,10 @@ export function CardOurValue1() {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <rect width="352" height="268" rx="10" fill="#C4C4C4" />
+      <rect width="352" height="268" rx="10" />
       <image
         className="front1"
-        href="/images/PRACIMA-2 1.png"
+        href="/images/pracima.jpeg"
         width="352"
         height="268"
       />
@@ -35,10 +35,10 @@ export function CardOurValue2() {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <rect width="352" height="268" rx="10" fill="#C4C4C4" />
+      <rect width="352" height="268" rx="10" />
       <image
         className="front2"
-        href="/images/front-card2.png"
+        href="/images/soueject.jpeg"
         width="352"
         height="268"
       />
@@ -61,10 +61,10 @@ export function CardOurValue3() {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <rect width="352" height="268" rx="10" fill="#C4C4C4" />
+      <rect width="352" height="268" rx="10" />
       <image
         className="front2"
-        href="/images/EMPATIA-2 1.png"
+        href="/images/empatia.jpeg"
         width="352"
         height="268"
       />

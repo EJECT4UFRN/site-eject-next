@@ -18,7 +18,7 @@ interface HeroProps {
 
 export function Hero({ content }: HeroProps) {
   return (
-    <Container back={`https://res.cloudinary.com/eject/${content.background}`}>
+    <Container back={content.background}>
       <motion.div variants={variants} initial="hidden" animate="visible">
         <div>
           <motion.h3 variants={itemVariants}>{content.title}</motion.h3>
@@ -31,7 +31,7 @@ export function Hero({ content }: HeroProps) {
             {content.textBtn}
           </motion.button>
         </div>
-        <Figure back={`https://res.cloudinary.com/eject/${content.background}`}>
+        <Figure back={content.background}>
           <div>
             <motion.span variants={variants} initial="hidden" animate="visible">
               <Image

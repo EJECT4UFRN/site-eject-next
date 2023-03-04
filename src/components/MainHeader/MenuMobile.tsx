@@ -32,7 +32,7 @@ export function MenuMobile({ isOpen, setIsOpen }) {
           </li>
           <li>
             <Link href="/conteudos/blog">
-              <a>Conteúdos</a>
+              <a>Blog</a>
             </Link>
           </li>
           <li>

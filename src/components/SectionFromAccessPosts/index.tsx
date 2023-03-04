@@ -46,7 +46,7 @@ export function SectionFromAccessPosts({
               </Link>
             </DemoPost>
           ))}
-          <button disabled onClick={() => Router.push("/conteudos/blog")}>VER MAIS CONTEÚDOS</button>
+          <button onClick={() => Router.push("/conteudos/blog")}>VER MAIS CONTEÚDOS</button>
         </Aside>
       </main>
     </Container>

@@ -28,17 +28,20 @@ function FeedBacks({ depositions }: FeedBacksProps) {
             <CardFeedback key={deposition.id}>
               <span>
                 <img
-                  src={`https://res.cloudinary.com/eject/${deposition.imagem}`}
+                  src={deposition.imagem}
                   alt="Profile Josmar Jr"
                 />
                 <div>
                   <p>{deposition.nome}</p>
                   <span>{deposition?.apelido}</span>
                 </div>
+
               </span>
+
               <Scroll>
                 <p>{deposition.comentario}</p>
               </Scroll>
+
             </CardFeedback>
           ))}
 

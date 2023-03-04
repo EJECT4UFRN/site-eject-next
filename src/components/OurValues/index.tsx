@@ -1,6 +1,7 @@
-import { CardOurValue1 } from "../CardOurValues";
+import { CardOurValue1, CardOurValue2, CardOurValue3  } from "../CardOurValues";
 import { ResponsiveSlideOurValues } from "./responsiveSlide";
 import { Container, ValuesCard, Value } from "./styles";
+
 
 type Values = {
   id: number;
@@ -27,6 +28,7 @@ export function OurValues({ ourValues }: OurValuesProps) {
           </Value>
         ))}
       </ValuesCard>
+      
       <ResponsiveSlideOurValues />
     </Container>
   );

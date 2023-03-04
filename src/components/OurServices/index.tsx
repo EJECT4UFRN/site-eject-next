@@ -5,14 +5,12 @@ import ResponsiveSlide from "./responsiveSlide";
 import { Container, Card, CardBack, Services } from "./styles";
 
 interface Service {
-  id: number;
-  titulo: string;
   format_title_front: string;
-  conteudoServicos: string;
-  conteudoBack: string;
   imageFront: string;
   icone: string;
+  conteudoBack: string;
   button: string;
+  conteudoServicos: string;
 }
 
 interface OurServicesProps {
@@ -28,7 +26,7 @@ export function OurServices({ services }: OurServicesProps) {
           <Card key={Math.random() * index}>
             <div className="cardFront">
               <img
-                src={`https://res.cloudinary.com/eject/${service.icone}`}
+                src={service.icone}
                 alt={service.conteudoServicos}
               />
 

@@ -1,5 +1,6 @@
 import Link from "next/link";
-
+import CookieConsent from "react-cookie-consent";
+import { boolean } from "yup";
 import { Container, Content } from "./styles";
 
 interface FooterProps {
@@ -12,10 +13,12 @@ interface FooterProps {
     facebook: string;
     instagram: string;
     linkedin: string;
+    // youtube: string;
   }[];
 }
 
 export function Footer({ footerInformations, socialMedias }: FooterProps) {
+
   return (
     <Container>
       <Content>
@@ -44,7 +47,13 @@ export function Footer({ footerInformations, socialMedias }: FooterProps) {
               <a>Contatos</a>
             </Link>
           </li>
+          <li>
+            <Link href="/terms-of-use">
+              <a>Política de Privacidade</a>
+            </Link>
+          </li>
         </ul>
+
         <ul>
           <h2>serviços</h2>
           <li>
@@ -57,11 +66,7 @@ export function Footer({ footerInformations, socialMedias }: FooterProps) {
               <a>E-commerce</a>
             </Link>
           </li>
-          <li>
-            <Link href="/solucao#3">
-              <a>Consultoria</a>
-            </Link>
-          </li>
+          
           <li>
             <Link href="/solucao#4">
               <a>Concepção</a>
@@ -71,10 +76,7 @@ export function Footer({ footerInformations, socialMedias }: FooterProps) {
         <ul>
           <h2>Endereço</h2>
           <li>
-            Instituto Metrópole Digital (IMD - UFRN),
-            <br /> sala B412 (4° piso)
-            <br /> Av. Capitão Mor. Gouvéia, Lagoa Nova, <br />
-            CEP: 59075-050
+            <p id="p_localizacao">{footerInformations[0].localizacao}</p>
           </li>
         </ul>
         <ul>
@@ -93,6 +95,13 @@ export function Footer({ footerInformations, socialMedias }: FooterProps) {
             <a href={socialMedias[0].linkedin} target="_blank">
               <img src="/svgs/linkedin.svg" alt="Logo Linkedin" />
             </a>
+            <a
+              href="https://www.youtube.com/channel/UC1QFHX0jntx0hI7oStfW4OQ/videos"
+              target="_blank"
+              id="social_youtube"
+            >
+              <img src="/svgs/youtube.svg" alt="Logo Youtube" />
+            </a>
           </span>
         </ul>
       </Content>
@@ -100,6 +109,15 @@ export function Footer({ footerInformations, socialMedias }: FooterProps) {
         Feito com <strong>foco </strong>e <strong>compromisso</strong> pela
         EJECT
       </p>
+
+      {/* <CookieConsent debug={true} style={{background:'#1b1e23', textAlign: "center"}} 
+        buttonStyle={{ background: "linear-gradient(92.07deg,#0995db 1.84%,#11a7f1 100%)", 
+        color:"#FFF", borderRadius: "5px"}} 
+        expires={365} buttonText="OK" overlay>
+        Este site utiliza cookies para proporcionar uma experiência de navegação melhor. consulte nossa 
+        <a href="/terms-of-use" style={{color:"#0995db"}}> Política de Privacidade</a>
+        </CookieConsent> */}
+
     </Container>
   );
 }

@@ -43,7 +43,7 @@ interface AboutUsProps {
   ourValues: {
     id: number;
     image: string;
-    cover: string;
+    hover: string;
   };
   recognition: {
     id: number;
@@ -87,7 +87,7 @@ export default function AboutUs({
         </TextContent>
         <Image
           width={2982}
-          height={854}
+          height={1000}
           src="/images/back-equipe.png"
           alt="Fotos dos membros da Eject"
         />
@@ -119,7 +119,9 @@ export default function AboutUs({
             </div>
           </main>
         </Recognition>
+
         <OurTeam team={team} />
+        
         <ProSempre>
           <div>
             <div className="logo-pro-sempre">

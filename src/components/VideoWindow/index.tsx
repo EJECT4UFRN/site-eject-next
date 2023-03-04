@@ -1,14 +1,14 @@
-import { Container } from './styles';
+import { Container } from "./styles";
 
 export function VideoWindow() {
   return (
     <Container>
       <iframe
-        src="https://www.youtube.com/embed/BOcu63fzLEQ"
+        src="https://www.youtube.com/embed/O_ioE-7upWo"
         title="YouTube video player"
-        frameBorder="0"
+        frameborder = "true"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        allowFullScreen
+        allowfullscreen
       ></iframe>
     </Container>
   );

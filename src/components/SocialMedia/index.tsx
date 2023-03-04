@@ -1,12 +1,13 @@
 import { Container } from "./styles";
 
-import { Face, Insta, Linkedin } from "./CustomSVG";
+import { Face, Insta, Linkedin, Youtube } from "./CustomSVG";
 
 interface SocialMediasProps {
   socialMedias: {
     facebook: string;
     instagram: string;
     linkedin: string;
+    youtube: string;
   }[];
 }
 
@@ -25,6 +26,11 @@ export function SocialMedias({ socialMedias }: SocialMediasProps) {
       />
       <Linkedin
         linkApi={socialMedias[0].linkedin}
+        colorPath="#0678BE"
+        colorHoverPath="#FFF"
+      />
+      <Youtube
+        linkApi={socialMedias[0].youtube}
         colorPath="#0678BE"
         colorHoverPath="#FFF"
       />

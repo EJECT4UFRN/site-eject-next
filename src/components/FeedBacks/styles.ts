@@ -126,7 +126,7 @@ export const CardFeedback = styled.a`
     img {
       width: 50px;
       height: 50px;
-      border-radius: 50%;
+      // border-radius: 50%;
       margin-right: 0.5rem;
     }
     > div {

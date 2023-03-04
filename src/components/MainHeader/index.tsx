@@ -1,5 +1,5 @@
 import { MenuItems } from './itemsMenu';
-import { DropdownItems } from '../MainHeader/itemsMenu';
+// import { DropdownItems } from '../MainHeader/itemsMenu';
 
 import { useState } from 'react';
 import { MenuDesktop } from './MenuDesktop';
@@ -27,10 +27,10 @@ export function MainHeader() {
       <MenuMobile isOpen={isOpen} setIsOpen={setIsOpen} />
 
       <MenuDesktop
-        isDrop={isDrop}
-        handleDropDown={handleDropDown}
-        handleMouseEvents={handleMouseEvents}
-        itemsMenu={{ MenuItems, DropdownItems }}
+        // isDrop={isDrop}
+        // handleDropDown={handleDropDown}
+        // handleMouseEvents={handleMouseEvents}
+        itemsMenu={{ MenuItems }}
       />
     </>
   );

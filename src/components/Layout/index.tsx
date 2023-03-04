@@ -22,6 +22,7 @@ interface StaticDataReturn {
     facebook: string;
     instagram: string;
     linkedin: string;
+    youtube: string;
   }[];
 }
 
@@ -32,7 +33,7 @@ export const Layout = ({ children }: LayoutProps) => {
         celular: "+55 (84) 99106-3793",
         email: "contato@ejectufrn.com.br",
         localizacao:
-          "IMD - Instituto Metrópole Digital, sala B412 Av. Capitão Mor Gouveia, Lagoa Nova, Natal - RN 59075-050",
+          "inPACTA - R. Monte Sinai, 1828a - Capim Macio, Natal - RN, 59078-360",
       },
     ],
     redes_sociais: [
@@ -40,6 +41,7 @@ export const Layout = ({ children }: LayoutProps) => {
         facebook: "https://www.facebook.com/ejectufrn",
         instagram: "https://www.instagram.com/ejectufrn/",
         linkedin: "https://www.linkedin.com/company/eject/mycompany/",
+        youtube:  "https://www.youtube.com/channel/UC1QFHX0jntx0hI7oStfW4OQ"
       },
     ],
   });

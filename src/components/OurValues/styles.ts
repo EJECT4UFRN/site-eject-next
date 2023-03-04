@@ -34,7 +34,7 @@ type ValueProps = {
 
 export const Value = styled.div<ValueProps>`
   background-image: ${({ imgBack }) =>
-    `url('https://res.cloudinary.com/eject/${imgBack.image}')`};
+    `url(${imgBack.image})`};
   background-position: center center;
   background-size: cover;
   border-radius: 1rem;
@@ -50,7 +50,7 @@ export const Value = styled.div<ValueProps>`
 
   &:hover {
     background-image: ${({ imgBack }) =>
-      `url('https://res.cloudinary.com/eject/${imgBack.imageHover}')`};
+      `url(${imgBack.imageHover})`};
 
     color: #fff;
   }

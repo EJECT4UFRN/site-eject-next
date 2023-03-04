@@ -42,7 +42,7 @@ export default function Clients({ content }: ClientProps) {
             <Card key={content.id}>
               <div>
                 <img
-                  src={`https://res.cloudinary.com/eject/${content.imagem}`}
+                  src={content.imagem}
                   alt={content.nome}
                 />
               </div>

@@ -11,25 +11,25 @@ export function OurPartners({ partners }) {
   return (
     <Container>
       <div>
-        <ContentText>
+        <ContentText>   
           <h1>{data.titulo}</h1>
           <p>{data.descricao}</p>
         </ContentText>
         <ContentPartners>
           <div>
-            {firstHalf.map((partner) => (
-              <img
+            {firstHalf.map((partner:any) => (
+              <img className="img_parceiros"
                 key={partner.id}
-                src={`https://res.cloudinary.com/eject/${partner.logo}`}
+                src={partner.logo}
                 alt=""
               />
             ))}
           </div>
           <div>
-            {secondHalf.map((partner) => (
+            {secondHalf.map((partner:any) => (
               <img
                 key={partner.id}
-                src={`https://res.cloudinary.com/eject/${partner.logo}`}
+                src={partner.logo}
                 alt=""
               />
             ))}

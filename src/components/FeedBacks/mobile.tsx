@@ -52,7 +52,7 @@ export function ContentMobile({ depositions }: FeedBacksProps) {
           className={`${isSelectedOne && "selected"}`}
         >
           <img
-            src={`https://res.cloudinary.com/eject/${first.imagem}`}
+            src={`${first.imagem}`}
             alt="profile"
           />
         </button>
