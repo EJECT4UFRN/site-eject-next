@@ -65,7 +65,7 @@ export default function ProSempre({ dataPage }: ProSempreProps) {
               startDate={dataPage.countDateInicio}
               endDate={dataPage.countDate}
             />
-            <VideoWindow />
+            {/* <VideoWindow /> */}
             <SectionWhy
               title={"PORQUÊ SE INSCREVER?"}
               firstText={"Experiência profissional ainda na faculdade"}
