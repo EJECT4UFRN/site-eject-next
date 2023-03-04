@@ -18,6 +18,7 @@ interface ContactProps {
     instagram: string;
     facebook: string;
     linkedin: string;
+    youtube: string;
   };
 }
 
@@ -37,10 +38,10 @@ export default function Contact({ phoneAndEmail, socialMedias }) {
           <Maps />
           <FormContact />
         </main>
-        <div>
+        <div style={{display:'flex', alignItems:'center', justifyContent:'center'}}>
           <span>{phoneAndEmail.phone}</span>
           <span>{phoneAndEmail.email}</span>
-          <span>
+          <span style={{display:'flex', flexDirection:'row', alignItems:'center', justifyContent:'center', gap:'1rem'}}>
             <Link href={socialMedias.instagram}>
               <a>
                 <img src="/svgs/insta-blue.svg" alt="Logo instagram" />
@@ -48,7 +49,7 @@ export default function Contact({ phoneAndEmail, socialMedias }) {
             </Link>
 
             <Link href={socialMedias.facebook}>
-              <a>
+              <a  style={{margin:'0'}}>
                 <img src="/svgs/face-blue.svg" alt="Logo Facebook" />
               </a>
             </Link>
@@ -56,6 +57,12 @@ export default function Contact({ phoneAndEmail, socialMedias }) {
             <Link href={socialMedias.linkedin}>
               <a>
                 <img src="/svgs/linkedin-blue.svg" alt="Logo linkedin" />
+              </a>
+            </Link>
+
+            <Link href={socialMedias.youtube}>
+              <a>
+                <img src="/svgs/youtube_azul.svg" alt="Logo youtube" style={{fill:'#003D73'}}/>
               </a>
             </Link>
           </span>

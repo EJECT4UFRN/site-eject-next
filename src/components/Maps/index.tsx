@@ -4,9 +4,9 @@ export function Maps() {
   return (
     <Container>
       <div>
-        <strong>IMD - Instituto Metrópole Digital, sala B412</strong>
-        <p>Av. Capitão Mor Gouveia, Lagoa Nova, Natal - RN </p>
-        <p>59075-050</p>
+        <strong>inPACTA</strong>
+        <p>R. Monte Sinai, 1828a - Capim Macio, Natal - RN</p>
+        <p>59078-360</p>
       </div>
       <main>
         <iframe
