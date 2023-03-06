@@ -1,12 +1,22 @@
 import { Container } from './styles';
 
-export function Maps() {
+
+interface Props{
+  location: String,
+}
+
+export function Maps({location}:Props) {
+
+  var nameAddress = location.split(" ");
+  var nameWithoutAddress = location.substring(nameAddress[0].length+2, (location.length - 1) - nameAddress[nameAddress.length-1].length-1);
+  var CEP = nameAddress[nameAddress.length-1];
+  
   return (
     <Container>
       <div>
-        <strong>inPACTA</strong>
-        <p>R. Monte Sinai, 1828a - Capim Macio, Natal - RN</p>
-        <p>59078-360</p>
+        <strong>{nameAddress[0]}</strong>
+        <p>{nameWithoutAddress}</p>
+        <p>{CEP}</p>
       </div>
       <main>
         <iframe
