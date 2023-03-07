@@ -36,7 +36,7 @@ export default function Contact({ phoneAndEmailAndEndereco, socialMedias }) {
         </p>
         <h2>É fácil de nos encontrar!</h2>
         <main>
-          <Maps location={phoneAndEmailAndEndereco.endereco}/>
+          <Maps location={phoneAndEmailAndEndereco.endereco}  avenue={phoneAndEmailAndEndereco.avenida} cep={phoneAndEmailAndEndereco.cep}/>
           <FormContact />
         </main>
         <div style={{display:'flex', alignItems:'center', justifyContent:'center'}}>
@@ -83,7 +83,9 @@ export const getStaticProps: GetStaticProps = async () => {
       phoneAndEmailAndEndereco: {
         phone: informations.footer[0].celular,
         email: informations.footer[0].email,
-        endereco: informations.footer[0].localizacao,  
+        endereco: informations.footer[0].localizacao, 
+        avenida: informations.footer[0].avenida, 
+        cep: informations.footer[0].cep, 
       },
       socialMedias: informations.redes_sociais[0],
     },

@@ -3,20 +3,20 @@ import { Container } from './styles';
 
 interface Props{
   location: String,
+  avenue: String,
+  cep: String,
 }
 
-export function Maps({location}:Props) {
+export function Maps({location, avenue, cep}:Props) {
 
   var nameAddress = location.split(" ");
-  var nameWithoutAddress = location.substring(nameAddress[0].length+2, (location.length - 1) - nameAddress[nameAddress.length-1].length-1);
-  var CEP = nameAddress[nameAddress.length-1];
   
   return (
     <Container>
       <div>
         <strong>{nameAddress[0]}</strong>
-        <p>{nameWithoutAddress}</p>
-        <p>{CEP}</p>
+        <p>{avenue}</p>
+        <p>{cep}</p>
       </div>
       <main>
         <iframe
