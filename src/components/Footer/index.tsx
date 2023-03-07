@@ -13,7 +13,7 @@ interface FooterProps {
     facebook: string;
     instagram: string;
     linkedin: string;
-    // youtube: string;
+    youtube: string;
   }[];
 }
 
@@ -96,8 +96,7 @@ export function Footer({ footerInformations, socialMedias }: FooterProps) {
               <img src="/svgs/linkedin.svg" alt="Logo Linkedin" />
             </a>
             <a
-              href="https://www.youtube.com/channel/UC1QFHX0jntx0hI7oStfW4OQ/videos"
-              target="_blank"
+              href={socialMedias[0].youtube} target="_blank"
               id="social_youtube"
             >
               <img src="/svgs/youtube.svg" alt="Logo Youtube" />
