@@ -96,10 +96,10 @@ export default function ProSempre({ dataPage }: ProSempreProps) {
               ) : (
                 <Buttons>
                   <Link href="../inscricoes-finalizadas">
-                    <a target="_blank">FAZER INSCRIÇÃO</a>
+                    <a target="_self">FAZER INSCRIÇÃO</a>
                   </Link>
-                  <Link href={dataPage.edital}>
-                    <a download target="_blank">
+                  <Link href="../inscricoes-finalizadas">
+                    <a download target="_self">
                       BAIXAR EDITAL
                     </a>
                   </Link>
