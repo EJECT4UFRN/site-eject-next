@@ -30,7 +30,7 @@ export const Layout = ({ children }: LayoutProps) => {
   const [footerAndNetWork, setFooterAndNetWork] = useState<StaticDataReturn>({
     footer: [
       {
-        celular: "+55 (84) 99106-3793",
+        celular: "+55 (84) 99226-4221",
         email: "contato@ejectufrn.com.br",
         localizacao:
           "inPACTA - R. Monte Sinai, 1828a - Capim Macio, Natal - RN, 59078-360",

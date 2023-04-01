@@ -24,7 +24,7 @@ export default function Solution({ pageData }) {
             >
               <div>
                 <img
-                  src={`https://res.cloudinary.com/eject/${content.imageFront}`}
+                  src={content.imageFront}
                   alt={content.format_title_front}
                   width={330}
                   height={190}

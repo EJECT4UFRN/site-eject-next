@@ -10,9 +10,10 @@ import { GetStaticProps } from "next";
 import api from "../services/api";
 
 interface ContactProps {
-  phoneAndEmail: {
+  phoneAndEmailAndEndereco: {
     phone: string;
     email: string;
+    endereco: string;
   };
   socialMedias: {
     instagram: string;
@@ -22,7 +23,7 @@ interface ContactProps {
   };
 }
 
-export default function Contact({ phoneAndEmail, socialMedias }) {
+export default function Contact({ phoneAndEmailAndEndereco, socialMedias }) {
   return (
     <Layout>
       <HeroTransform />
@@ -35,12 +36,12 @@ export default function Contact({ phoneAndEmail, socialMedias }) {
         </p>
         <h2>É fácil de nos encontrar!</h2>
         <main>
-          <Maps />
+          <Maps location={phoneAndEmailAndEndereco.endereco}  avenue={phoneAndEmailAndEndereco.avenida} cep={phoneAndEmailAndEndereco.cep}/>
           <FormContact />
         </main>
         <div style={{display:'flex', alignItems:'center', justifyContent:'center'}}>
-          <span>{phoneAndEmail.phone}</span>
-          <span>{phoneAndEmail.email}</span>
+          <span>{phoneAndEmailAndEndereco.phone}</span>
+          <span>{phoneAndEmailAndEndereco.email}</span>
           <span style={{display:'flex', flexDirection:'row', alignItems:'center', justifyContent:'center', gap:'1rem'}}>
             <Link href={socialMedias.instagram}>
               <a>
@@ -79,9 +80,12 @@ export const getStaticProps: GetStaticProps = async () => {
 
   return {
     props: {
-      phoneAndEmail: {
+      phoneAndEmailAndEndereco: {
         phone: informations.footer[0].celular,
         email: informations.footer[0].email,
+        endereco: informations.footer[0].localizacao, 
+        avenida: informations.footer[0].avenida, 
+        cep: informations.footer[0].cep, 
       },
       socialMedias: informations.redes_sociais[0],
     },

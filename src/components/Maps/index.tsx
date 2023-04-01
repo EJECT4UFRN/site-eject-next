@@ -1,12 +1,22 @@
 import { Container } from './styles';
 
-export function Maps() {
+
+interface Props{
+  location: String,
+  avenue: String,
+  cep: String,
+}
+
+export function Maps({location, avenue, cep}:Props) {
+
+  var nameAddress = location.split(" ");
+  
   return (
     <Container>
       <div>
-        <strong>inPACTA</strong>
-        <p>R. Monte Sinai, 1828a - Capim Macio, Natal - RN</p>
-        <p>59078-360</p>
+        <strong>{nameAddress[0]}</strong>
+        <p>{avenue}</p>
+        <p>{cep}</p>
       </div>
       <main>
         <iframe
