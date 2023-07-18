@@ -7,6 +7,7 @@ import { SocialMedias } from "../SocialMedia";
 import { Container } from "./styles";
 import { ReactNode, useEffect, useState } from "react";
 import api from "../../services/api";
+import HuggyScript from "../HuggyScript";
 
 interface LayoutProps {
   children: ReactNode;
@@ -66,6 +67,7 @@ export const Layout = ({ children }: LayoutProps) => {
       <MainHeader />
       <main>{children}</main>
       <SocialMedias socialMedias={footerAndNetWork.redes_sociais} />
+      <HuggyScript/>
       <Footer
         footerInformations={footerAndNetWork?.footer}
         socialMedias={footerAndNetWork?.redes_sociais}
