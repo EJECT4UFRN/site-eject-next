@@ -37,7 +37,7 @@ export function Hero({ content }: HeroProps) {
               <Image
                 height={1218}
                 width={1293}
-                src="/images/women-hero.png"
+                src="/images/fotomalu.png"
                 alt="Mulher segurando tablet"
               />
             </motion.span>
