@@ -121,6 +121,6 @@ export const getStaticProps: GetStaticProps = async () => {
       services,
       postContent: postsFormatted,
     },
-    revalidate: 60 * 60 * 8,
+    revalidate: 60 * 5,
   };
 };

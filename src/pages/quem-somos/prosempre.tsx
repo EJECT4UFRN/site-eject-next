@@ -121,6 +121,6 @@ export const getStaticProps: GetStaticProps = async () => {
     props: {
       dataPage: data[0],
     },
-    revalidate: (60 * 10) / 2, // 5 min
+    revalidate: 60 * 5,
   };
 };

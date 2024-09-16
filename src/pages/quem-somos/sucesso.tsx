@@ -106,6 +106,6 @@ export const getStaticProps: GetStaticProps = async () => {
       linkWhats: whats,
       edition: edicao,
     },
-    revalidate: 60 * 60 * 8,
+    revalidate: 60 * 5,
   };
 };

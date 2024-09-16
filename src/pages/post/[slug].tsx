@@ -201,6 +201,6 @@ export const getStaticProps: GetStaticProps = async ({
       somePosts,
       preview,
     },
-    revalidate: 1800,
+    revalidate: 60 * 5,
   };
 };

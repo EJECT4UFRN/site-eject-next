@@ -89,6 +89,6 @@ export const getStaticProps: GetStaticProps = async () => {
       },
       socialMedias: informations.redes_sociais[0],
     },
-    revalidate: 60 * 60 * 24, // 24 hours
+    revalidate: 60 * 5,
   };
 };

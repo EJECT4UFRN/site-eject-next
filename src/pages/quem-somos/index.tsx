@@ -178,6 +178,6 @@ export const getStaticProps: GetStaticProps = async () => {
       }),
       edition: proSempreEdition.edicao,
     },
-    revalidate: 60 * 60 * 8,
+    revalidate: 60 * 5,
   };
 };
