@@ -24,7 +24,7 @@ Descrição do projeto
 
 ### Utilitários
 
-- **Node.js [v16.20.2]** - Ambiente de execução e gerenciador de pacotes
+- **Node.js [16.20.2]** - Ambiente de execução e gerenciador de pacotes
 - **Prettier** - Formatador de código
 - **SCSS [opcional]**- Linguagem de extensão do CSS
 
