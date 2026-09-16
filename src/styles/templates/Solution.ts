@@ -82,7 +82,7 @@ export const CardContent = styled(motion.main)`
     transform: translate3d(-100px, 0px, 0);
 
     display: flex;
-    align-items: flex-end;
+    align-items: center;
     justify-content: center;
 
     border: 3.8px solid #fff;
@@ -91,7 +91,6 @@ export const CardContent = styled(motion.main)`
     filter: drop-shadow(5px 10px 30px rgba(153, 167, 189, 0.5));
 
     position: relative;
-    padding-bottom: 1rem;
 
     &:after {
       content: '';
@@ -105,9 +104,7 @@ export const CardContent = styled(motion.main)`
     }
 
     img {
-      border-radius: 6px;
-      margin: 1rem;
-      transform: translateY(20px);
+      object-fit: contain !important;
     }
   }
 
@@ -127,6 +124,9 @@ export const CardContent = styled(motion.main)`
 
     p {
       margin: 1rem 0;
+      padding-right: 0.5rem;
+      text-align: justify;
+      hyphens: auto;
     }
 
     ul {
@@ -148,7 +148,7 @@ export const CardContent = styled(motion.main)`
 
       border-radius: 10px;
       padding: 1rem;
-      margin: 4rem 0 1rem 0;
+      margin: 2rem 0 0 0;
 
       transition: 0.3s ease;
 
