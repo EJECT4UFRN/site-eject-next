@@ -5,6 +5,7 @@ module.exports = withImages({
   images: {
     domains: [
       'apisite.ejectufrn.com.br',
+      'ejectbackteste.pythonanywhere.com',
       'res.cloudinary.com',
       'assets.vercel.com',
       'images.prismic.io',
