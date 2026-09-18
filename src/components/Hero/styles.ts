@@ -159,8 +159,8 @@ export const Container = styled.main<ContainerProps>`
 
 export const Figure = styled.figure<ContainerProps>`
   div {
-    width: 411px;
-    height: 406px;
+    width: 500px;
+    height: 450px;
   }
 
   @media (min-width: 1580px) {
