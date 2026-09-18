@@ -58,18 +58,22 @@ export function Footer({ footerInformations, socialMedias }: FooterProps) {
           <h2>serviços</h2>
           <li>
             <Link href="/solucao#1">
-              <a>Sites e Sistemas</a>
+              <a>Sites Responsivos</a>
             </Link>
           </li>
           <li>
             <Link href="/solucao#2">
-              <a>E-commerce</a>
+              <a>Sistemas Web</a>
             </Link>
           </li>
-          
+          <li>
+            <Link href="/solucao#3">
+              <a>Landing Page</a>
+            </Link>
+          </li>
           <li>
             <Link href="/solucao#4">
-              <a>Concepção</a>
+              <a>Chatbot Inteligente</a>
             </Link>
           </li>
         </ul>
