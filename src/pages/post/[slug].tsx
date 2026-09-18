@@ -148,11 +148,11 @@ export const getStaticProps: GetStaticProps = async ({
 
   const valueRef = previewData && Object.values(previewData)[0];
 
-  const response = await prismic.getByUID("post", String(slug), {
+  const response = await prismic.getByUID<any>("post", String(slug), {
     ref: valueRef,
   });
 
-  const responsePrismic = await prismic.query(
+  const responsePrismic = await prismic.query<any>(
     [Prismic.Predicates.at("document.type", "post")],
     {
       pageSize: 3,

@@ -6,8 +6,8 @@ const API_PRODUCTION = 'https://apisite.ejectufrn.com.br/api/';
 const api = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL ?? API_PRODUCTION,
   auth: {
-    username: process.env.NEXT_PUBLIC_API_USER ?? "client_site_eject",
-    password: process.env.NEXT_PUBLIC_API_PASSWORD ?? "Senha@frontEJECT21"
+    username: process.env.NEXT_PUBLIC_API_USER ?? "EjectAdmin",
+    password: process.env.NEXT_PUBLIC_API_PASSWORD ?? "EYiGwzyXIe8achqpAZvb"
   }
 });
 

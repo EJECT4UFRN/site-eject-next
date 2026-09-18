@@ -69,7 +69,7 @@ export const getStaticProps: GetStaticProps = async () => {
   const [content] = data;
 
   const prismic = getPrismicClient();
-  const responsePrismic = await prismic.query(
+  const responsePrismic = await prismic.query<any>(
     [Prismic.Predicates.at("document.type", "post")],
     {
       pageSize: 1,

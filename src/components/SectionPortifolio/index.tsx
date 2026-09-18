@@ -224,6 +224,7 @@ export function SectionPortifolio({
           offsetRadius={settings.offsetRadius}
           showNavigation={settings.showNavigation}
           animationConfig={settings.config}
+          goToSlideDelay={0}
           {...params}
         ></Carousel>
       </div>
