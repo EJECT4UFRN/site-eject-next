@@ -42,22 +42,22 @@ export const Layout = ({ children }: LayoutProps) => {
         facebook: "https://www.facebook.com/ejectufrn",
         instagram: "https://www.instagram.com/ejectufrn/",
         linkedin: "https://www.linkedin.com/company/eject/mycompany/",
-        youtube:  "https://www.youtube.com/channel/UC1QFHX0jntx0hI7oStfW4OQ"
+        youtube:  "https://www.youtube.com/@eject_ufrn"
       },
     ],
   });
 
-  async function getDataFooter() {
-    const {
-      data: [informations],
-    } = await api.get<StaticDataReturn[]>("estatico");
+  // async function getDataFooter() {
+  //   const {
+  //     data: [informations],
+  //   } = await api.get<StaticDataReturn[]>("estatico");
 
-    setFooterAndNetWork(informations);
-  }
+  //   setFooterAndNetWork(informations);
+  // }
 
-  useEffect(() => {
-    getDataFooter();
-  }, []);
+  // useEffect(() => {
+  //   getDataFooter();
+  // }, []);
 
   return (
     <Container>

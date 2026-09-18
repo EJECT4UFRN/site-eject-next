@@ -53,7 +53,7 @@ export default function Home({
         <Hero content={hero} />
         <Accountants count={contadores} />
         <OurServices services={services.card} />
-        <FeedBacks depositions={depositions} />
+        {/* <FeedBacks depositions={depositions} />  */}
         <Diagnosis diagnosis={diagnostico} />
         <OurMission mission={missao} />
         {/* <SectionPortifolio portifolioContent={portifolio} /> */}

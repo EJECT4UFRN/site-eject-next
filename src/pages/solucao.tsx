@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { GetStaticProps } from 'next';
+import Image from 'next/image';
 import Link from 'next/link';
 import { Layout } from '../components/Layout';
 import api from '../services/api';
@@ -23,16 +24,17 @@ export default function Solution({ pageData }) {
               variants={itemVariants}
             >
               <div>
-                <img
+                <Image
                   src={content.imageFront}
                   alt={content.format_title_front}
-                  width={330}
-                  height={190}
+                  width={160}
+                  height={160}
+                  objectFit="contain"
                 />
               </div>
               <aside>
                 <h2>{content.format_title_front}</h2>
-                <p>{content.conteudoBack}</p>
+                <p>{content.conteudoServicos}</p>
 
                 <Link href="/contato">
                   <button>{content.button}</button>

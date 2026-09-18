@@ -55,6 +55,7 @@ interface AboutUsProps {
 export default function AboutUs({
   hero,
   textContent,
+  teamImage,
   vision,
   ourValues,
   recognition,
@@ -86,9 +87,9 @@ export default function AboutUs({
           </div>
         </TextContent>
         <Image
-          width={2982}
-          height={1000}
-          src="/images/back-equipe.png"
+          width={1425} // Provisório para o GO!RN
+          height={708}  // Provisório para o GO!RN
+          src={teamImage.image}
           alt="Fotos dos membros da Eject"
         />
         {vision.map((vis) => (
@@ -122,7 +123,7 @@ export default function AboutUs({
 
         <OurTeam team={team} />
         
-        <ProSempre>
+        {/* <ProSempre>
           <div>
             <div className="logo-pro-sempre">
               <LogoProSempre />
@@ -138,7 +139,7 @@ export default function AboutUs({
               </Link>
             </div>
           </div>
-        </ProSempre>
+        </ProSempre> */}
       </Container>
     </Layout>
   );

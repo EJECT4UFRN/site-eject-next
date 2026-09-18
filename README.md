@@ -17,14 +17,14 @@ Descrição do projeto
 
 ### Core
 
-- **React [versão]** - Biblioteca de JavaScript 
-- **TypeScript [versão]** - Linguagem de Marcação
+- **React [17.0.2]** - Biblioteca de JavaScript 
+- **TypeScript [4.3.2]** - Linguagem de Marcação
 - **CSS3** - Linguagem de estilos em cascata
 - **Vite [versão]** - Ferramenta de build e servidor local
 
 ### Utilitários
 
-- **Node.js** - Ambiente de execução e gerenciador de pacotes
+- **Node.js [16.20.2]** - Ambiente de execução e gerenciador de pacotes
 - **Prettier** - Formatador de código
 - **SCSS [opcional]**- Linguagem de extensão do CSS
 

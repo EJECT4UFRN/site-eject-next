@@ -35,9 +35,9 @@ export function Hero({ content }: HeroProps) {
           <div>
             <motion.span variants={variants} initial="hidden" animate="visible">
               <Image
-                height={1218}
-                width={1293}
-                src="/images/fotomalu.png"
+                height={1386} // Provisório para o GO!RN
+                width={1135} // Provisório para o GO!RN
+                src={content.people}
                 alt="Mulher segurando tablet"
               />
             </motion.span>

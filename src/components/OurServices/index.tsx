@@ -23,7 +23,7 @@ export function OurServices({ services }: OurServicesProps) {
       <h1>Nossos Serviços</h1>
       <Services>
         {services.map((service, index) => (
-          <Card key={Math.random() * index}>
+          <Card key={index}>
             <div className="cardFront">
               <img
                 src={service.icone}

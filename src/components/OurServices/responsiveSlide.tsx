@@ -27,8 +27,8 @@ export default function ResponsiveSlide({ services }) {
   return (
     <SwiperContainer>
       <Swiper {...params} className="mySwiper">
-        {services.map((service) => (
-          <SwiperSlide key={service.id} className="SwiperSlide">
+        {services.map((service, index) => (
+          <SwiperSlide key={index} className="SwiperSlide">
             <CardSwiper>
               <h2>{service.format_title_front}</h2>
               <div>
