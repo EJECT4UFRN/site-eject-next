@@ -163,13 +163,6 @@ export const Figure = styled.figure<ContainerProps>`
     height: 450px;
   }
 
-  @media (min-width: 1580px) {
-    div {
-      width: 500px;
-      height: 486px;
-    }
-  }
-
   @media (max-width: 960px) {
     width: 100%;
     height: 100%;
