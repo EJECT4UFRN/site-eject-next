@@ -161,6 +161,11 @@ export const Figure = styled.figure<ContainerProps>`
   div {
     width: 500px;
     height: 450px;
+
+    img {
+      width: auto !important;
+      max-width: none !important;
+    }
   }
 
   @media (max-width: 960px) {
@@ -179,7 +184,7 @@ export const Figure = styled.figure<ContainerProps>`
 
   @media (max-width: 580px) {
     div {
-      width: 350px;
+      width: 400px;
       height: 325px;
     }
   }
@@ -187,7 +192,7 @@ export const Figure = styled.figure<ContainerProps>`
     height: 55%;
 
     div {
-      width: 320px;
+      width: 350px;
       height: 305px;
     }
   }
