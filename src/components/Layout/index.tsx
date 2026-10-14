@@ -47,13 +47,32 @@ export const Layout = ({ children }: LayoutProps) => {
     ],
   });
 
-  async function getDataFooter() {
-    const {
-      data: [informations],
-    } = await api.get<StaticDataReturn[]>("estatico");
+  //async function getDataFooter() {
+  //  const {
+  //    data: [informations],
+  //  } = await api.get<StaticDataReturn[]>("estatico");
 
-    setFooterAndNetWork(informations);
+  //  setFooterAndNetWork(informations);
+  //}
+
+
+  //----
+
+  async function getDataFooter() {
+    try {
+      const { data } = await api.get<StaticDataReturn[]>("estatico");
+      
+      // Só sobrescreve se a API realmente devolver um item válido
+      if (data?.[0]) {
+        setFooterAndNetWork(data[0]);
+      }
+    } catch (error) {
+      // Se a API falhar, não faz nada e mantém os dados padrão do useState
+      console.error("Erro ao carregar dados do footer:", error);
+    }
   }
+
+  //---
 
   useEffect(() => {
     getDataFooter();
@@ -66,7 +85,7 @@ export const Layout = ({ children }: LayoutProps) => {
       </Head>
       <MainHeader />
       <main>{children}</main>
-      <SocialMedias socialMedias={footerAndNetWork.redes_sociais} />
+      <SocialMedias socialMedias={footerAndNetWork?.redes_sociais} />
       <HuggyScript/>
       <Footer
         footerInformations={footerAndNetWork?.footer}
