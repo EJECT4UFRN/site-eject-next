@@ -49,14 +49,14 @@ export function ResponsiveSlidePartners({
     <SwiperContainer>
       <Swiper {...params} className="mySwiper">
         <SwiperSlide className="contentSwiper">
-          {firstHalf.map((partner) => (
+          {firstHalf?.map((partner) => (
             <div key={partner.id}>
               <img src={partner.logo} alt={partner.name} />
             </div>
           ))}
         </SwiperSlide>
         <SwiperSlide className="contentSwiper">
-          {secondHalf.map((partner) => (
+          {secondHalf?.map((partner) => (
             <div key={partner.id}>
               <img src={partner.logo} alt={partner.name} />
             </div>

@@ -3,8 +3,8 @@ import { ResponsiveSlidePartners } from './responsiveSlide';
 import { Container, ContentText, ContentPartners } from './styles';
 
 export function OurPartners({ partners }) {
-  const [data] = partners;
-  const { parceiros_object } = data;
+  const [data] = partners || [{}];
+  const { parceiros_object } = data || {};
   const firstHalf = parceiros_object.slice(0, 3);
   const secondHalf = parceiros_object.slice(3, 6);
 

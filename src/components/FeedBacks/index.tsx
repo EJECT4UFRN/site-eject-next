@@ -33,7 +33,7 @@ function FeedBacks({ depositions }: FeedBacksProps) {
                 />
                 <div>
                   <p>{deposition.nome}</p>
-                  <span>{deposition?.apelido}</span>
+                  <span>{deposition.apelido}</span>
                 </div>
 
               </span>
