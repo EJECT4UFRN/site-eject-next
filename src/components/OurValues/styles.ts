@@ -23,6 +23,11 @@ export const ValuesCard = styled.div`
   @media (max-width: 960px) {
     display: none;
   }
+  
+  @media (max-width: 1240px) {
+    flex-wrap: wrap;
+  }
+    
 `;
 
 type ValueProps = {
@@ -60,10 +65,25 @@ export const SwiperContainer = styled.div`
   transform: translateY(-50px);
   display: none;
   position: relative;
+
+  ${Value} {
+    width: 100%;
+    height: 80%;
+    max-width: 300px;
+    margin: 0;
+  }
+
   .contentSwiper {
-    height: 360px;
+    height: 320px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 1rem;
+  
   }
   .mySwiper {
+    margin: 0;
+
     .swiper-button-prev {
       width: 42px;
       height: 42px;
@@ -112,6 +132,10 @@ export const SwiperContainer = styled.div`
   margin: 4rem 0;
   @media (max-width: 960px) {
     display: flex;
+
+    .contentSwiper {
+      height: 380px;
+    }
   }
 
   @media (max-width: 840px) {
@@ -154,10 +178,28 @@ export const SwiperContainer = styled.div`
   }
   @media (max-width: 460px) {
     .contentSwiper {
-      height: 290px;
+      height: 370px;
     }
   }
   @media (max-width: 440px) {
     transform: scale(0.9) translateY(-80px);
+  }
+
+  @media (max-width: 400px) {
+    .mySwiper {
+      height: 390px;
+    }
+
+    .contentSwiper {
+      margin: 0;
+    }
+    .mySwiper .swiper-button-prev {
+      top: 370px;
+      left: 70px;
+    }
+    .mySwiper .swiper-button-next {
+      top: 370px;
+      right: 70px;
+    }
   }
 `;

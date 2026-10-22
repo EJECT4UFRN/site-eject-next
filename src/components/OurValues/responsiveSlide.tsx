@@ -12,11 +12,22 @@ import SwiperCore, { Pagination, Navigation } from 'swiper/core';
 // install Swiper modules
 SwiperCore.use([Pagination, Navigation]);
 
-import { CardOurValue1, CardOurValue2, CardOurValue3 } from '../CardOurValues';
+import { Value } from './styles';
 
 import { SwiperContainer } from './styles';
 
-export function ResponsiveSlideOurValues() {
+type Values = {
+  id: number;
+  hover: string;
+  imagem: string;
+  text: string;
+};
+
+type ResponsiveSlideProps = {
+  ourValues: Values[];
+};
+
+export function ResponsiveSlideOurValues({ ourValues }: ResponsiveSlideProps) {
   const params = {
     slidesPerView: 1,
     navigation: {
@@ -35,15 +46,15 @@ export function ResponsiveSlideOurValues() {
   return (
     <SwiperContainer>
       <Swiper {...params} className="mySwiper">
-        <SwiperSlide className="contentSwiper">
-          <CardOurValue1 />
-        </SwiperSlide>
-        <SwiperSlide className="contentSwiper">
-          <CardOurValue2 />
-        </SwiperSlide>
-        <SwiperSlide className="contentSwiper">
-          <CardOurValue3 />
-        </SwiperSlide>
+      
+        {ourValues?.map((value) => (
+          <SwiperSlide key={value.id} className="contentSwiper">
+            <Value imgBack={{ image: value.imagem, imageHover: value.hover }}>
+              <h2>{value.text}</h2>
+            </Value>
+          </SwiperSlide>
+        ))}
+
         <div className="swiper-button-next"></div>
         <div className="swiper-button-prev"></div>
       </Swiper>

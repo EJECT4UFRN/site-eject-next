@@ -29,7 +29,7 @@ export function OurValues({ ourValues }: OurValuesProps) {
         ))}
       </ValuesCard>
       
-      <ResponsiveSlideOurValues />
+      <ResponsiveSlideOurValues ourValues={ourValues}/>
     </Container>
   );
 }
