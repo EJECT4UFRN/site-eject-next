@@ -28,7 +28,7 @@ export const Container = styled.div`
 
   h1 {
     font-size: 2.5rem;
-    margin-bottom: 2.8rem;
+    margin-bottom: 3.5rem;
     text-align: center;
   }
 
@@ -144,10 +144,10 @@ export const SwiperContainer = styled.div`
   display: flex;
   align-items: center;
   .btn {
-    width: 38px;
-    height: 38px;
+    width: 40px;
+    height: 40px;
     position: absolute;
-    top: -20px;
+    top: -25px;
     background: #f3f5f4;
     cursor: pointer;
     display: flex;
@@ -160,10 +160,10 @@ export const SwiperContainer = styled.div`
   }
 
   .prev {
-    right: 0px;
+    right: 20px;
   }
   .next {
-    right: 60px;
+    right: 90px;
     transform: rotate(180deg);
   }
   .swiper-button-next {
@@ -204,7 +204,7 @@ export const SwiperContainer = styled.div`
 
   .SwiperSlide {
     display: block;
-    /* margin: 0 auto; */
+    margin: 0;
     max-width: 230px;
     padding: 0px;
 

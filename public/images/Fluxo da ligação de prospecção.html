@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Fluxo da ligação de prospecção — EJECT</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+  --bg:#eef2f7; --surface:#ffffff; --ink:#18212f; --muted:#556072; --line:#9aa6b8;
+  --fala:#3b5bdb; --sucesso:#1f9d55; --conversa:#a020b8; --objecao:#e8590c;
+  --retorno:#0b84c6; --whats:#0f9488; --descarte:#6b7486; --registro:#d6336c; --base:#1b2a44;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0f1622; --surface:#182233; --ink:#e8edf5; --muted:#a3aec0; --line:#55627a;
+    --fala:#6f8cff; --sucesso:#3cc77a; --conversa:#d36be6; --objecao:#ff8a3d;
+    --retorno:#3fb2ee; --whats:#2cc2b3; --descarte:#8d96a8; --registro:#f06595; --base:#3a5585;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0f1622; --surface:#182233; --ink:#e8edf5; --muted:#a3aec0; --line:#55627a;
+  --fala:#6f8cff; --sucesso:#3cc77a; --conversa:#d36be6; --objecao:#ff8a3d;
+  --retorno:#3fb2ee; --whats:#2cc2b3; --descarte:#8d96a8; --registro:#f06595; --base:#3a5585;
+}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Exo 2",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;font-size:15px;line-height:1.5}
+.wrap{max-width:1320px;margin:0 auto;padding:32px 20px 64px}
+
+/* categorias */
+.k-fala{--c:var(--fala)} .k-sucesso{--c:var(--sucesso)} .k-conversa{--c:var(--conversa)}
+.k-objecao{--c:var(--objecao)} .k-retorno{--c:var(--retorno)} .k-whats{--c:var(--whats)}
+.k-descarte{--c:var(--descarte)} .k-registro{--c:var(--registro)} .k-base{--c:var(--base)}
+
+/* topo */
+header.hero{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:24px;align-items:end;margin-bottom:28px}
+.hero h1{font-size:clamp(30px,5vw,52px);line-height:1.02;font-weight:800;letter-spacing:-.02em;margin:0 0 10px}
+.hero p{margin:0;color:var(--muted);max-width:62ch;font-size:16px}
+.goal{background:var(--sucesso);color:#fff;border-radius:14px;padding:14px 18px;font-weight:600;max-width:300px}
+.goal strong{display:block;font-size:20px;font-weight:800}
+
+.legend{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 14px;padding:0;list-style:none}
+.legend li{display:flex;align-items:center;gap:8px;background:var(--surface);border-radius:999px;padding:5px 12px 5px 6px;font-size:13px;font-weight:600}
+.legend li::before{content:"";width:16px;height:16px;border-radius:50%;background:var(--c)}
+.keys{display:flex;flex-wrap:wrap;gap:14px;margin:0 0 30px;font-size:13px;color:var(--muted)}
+.keys span{display:inline-flex;align-items:center;gap:6px}
+.chip-say,.chip-do{font-size:11px;font-weight:700;border-radius:5px;padding:1px 7px}
+.chip-say{background:var(--ink);color:var(--surface)}
+.chip-do{border:1.5px dashed var(--muted);color:var(--muted)}
+
+nav.jumps{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:34px}
+nav.jumps a{color:var(--ink);text-decoration:none;background:var(--surface);border:2px solid var(--line);border-radius:10px;padding:6px 12px;font-weight:600;font-size:14px}
+nav.jumps a:hover{border-color:var(--fala)}
+a:focus-visible{outline:3px solid var(--fala);outline-offset:2px}
+
+/* quadros */
+section.board{background:var(--surface);border-radius:22px;padding:26px 22px 30px;margin-bottom:28px}
+section.board > h2{margin:0 0 4px;font-size:24px;font-weight:800;letter-spacing:-.01em}
+section.board > .sub{margin:0 0 22px;color:var(--muted);max-width:70ch}
+.canvas{display:flex;flex-direction:column;align-items:center}
+
+/* bloco */
+.card{width:100%;max-width:400px;border:2.5px solid var(--c);border-radius:16px;background:color-mix(in srgb,var(--c) 9%,var(--surface));overflow:hidden;text-align:left}
+.card.wide{max-width:560px}
+.card > h3{margin:0;background:var(--c);color:#fff;font-size:15px;font-weight:700;padding:9px 14px;display:flex;gap:10px;align-items:baseline}
+.card > h3 .code{background:rgba(255,255,255,.22);border-radius:6px;padding:0 7px;font-size:13px;font-weight:800;flex:none}
+.card .body{padding:12px 14px 14px;display:flex;flex-direction:column;gap:9px}
+.say{background:var(--surface);border-left:4px solid var(--c);border-radius:4px 10px 10px 4px;padding:8px 11px;font-size:15px}
+.say::before{content:"Diga";display:inline-block;margin-right:7px;font-size:11px;font-weight:700;background:var(--ink);color:var(--surface);border-radius:5px;padding:0 7px;vertical-align:2px}
+.say ul{margin:6px 0 0;padding-left:18px}
+.say li{margin:3px 0}
+.do{border:1.5px dashed color-mix(in srgb,var(--c) 70%,var(--muted));border-radius:10px;padding:7px 11px;font-size:13.5px;color:var(--muted)}
+.do::before{content:"Faça";display:inline-block;margin-right:7px;font-size:11px;font-weight:700;border:1.5px dashed var(--muted);border-radius:5px;padding:0 6px;vertical-align:1px}
+.when{font-size:13px;font-weight:700;color:var(--c);margin-top:2px}
+.jump{display:inline-flex;align-items:center;gap:7px;align-self:flex-start;text-decoration:none;font-weight:700;font-size:13px;color:var(--c);background:var(--surface);border:2px solid var(--c);border-radius:999px;padding:3px 12px 3px 8px}
+.jump::before{content:"";width:10px;height:10px;border-radius:50%;background:var(--c)}
+.jump:hover{background:var(--c);color:#fff}
+.jump:hover::before{background:#fff}
+
+/* conexões */
+.arrow{width:2.5px;height:28px;background:var(--line);position:relative;flex:none}
+.arrow::after{content:"";position:absolute;bottom:-1px;left:50%;transform:translateX(-50%);border:7px solid transparent;border-top:9px solid var(--line);border-bottom:0}
+.arrow.end{margin-bottom:8px}
+.stem{width:2.5px;height:20px;background:var(--line);flex:none}
+.split{display:flex;align-items:flex-start;width:100%}
+.branch{flex:1 1 0;min-width:0;display:flex;flex-direction:column;align-items:center;position:relative;padding:24px 9px 0}
+.branch.w2{flex-grow:2}
+.branch::before,.branch::after{content:"";position:absolute;top:0;width:50%;height:24px;border-top:2.5px solid var(--line)}
+.branch::before{right:50%}
+.branch::after{left:50%;border-left:2.5px solid var(--line)}
+.branch:first-child::before,.branch:last-child::after{border-top:0}
+.branch:only-child::before{display:none}
+.pill{background:var(--c);color:#fff;font-weight:700;font-size:13px;border-radius:999px;padding:4px 13px;margin-bottom:0;text-align:center;max-width:100%}
+
+/* objeções */
+.obj-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:14px}
+.obj-grid .card{max-width:none}
+.tag{font-size:12px;font-weight:700;color:var(--c);background:var(--surface);border-radius:6px;padding:1px 8px;align-self:flex-start}
+.quote{font-weight:700;font-size:15.5px}
+
+.fields{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;font-size:13.5px;margin:0}
+.fields dt{font-weight:700}
+.fields dd{margin:0;color:var(--muted)}
+.end-node{background:var(--base);color:#fff;font-weight:800;border-radius:999px;padding:8px 26px}
+
+/* mensagens de WhatsApp */
+.msg{position:relative;background:color-mix(in srgb,var(--whats) 15%,var(--surface));border-radius:4px 16px 16px 16px;padding:11px 13px 10px;font-size:14.5px}
+.msg p{margin:0 0 8px}
+.msg p:last-child{margin-bottom:0}
+.msg a{color:var(--whats);font-weight:700;word-break:break-all}
+.copy{align-self:flex-end;font:inherit;font-size:13px;font-weight:700;color:#fff;background:var(--whats);border:0;border-radius:999px;padding:5px 14px;cursor:pointer}
+.copy:hover{filter:brightness(1.08)}
+.copy:focus-visible{outline:3px solid var(--fala);outline-offset:2px}
+.copy.done{background:var(--sucesso)}
+.card.msgcard{max-width:420px}
+
+@media (max-width:820px){
+  header.hero{grid-template-columns:1fr}
+  .split{flex-direction:column;align-items:stretch}
+  .branch{padding:16px 0 0 18px;align-items:stretch;border-left:2.5px solid var(--line);margin-left:6px}
+  .branch::before,.branch::after{display:none}
+  .branch .card{max-width:none}
+  .branch .stem,.branch .arrow{margin-left:22px}
+  .pill{align-self:flex-start}
+  .canvas{align-items:stretch}
+  .canvas > .card{max-width:none}
+  .canvas > .arrow,.canvas > .stem{align-self:center}
+}
+@media (prefers-reduced-motion: no-preference){
+  html{scroll-behavior:smooth}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="hero">
+  <div>
+    <h1>Ligação de prospecção</h1>
+    <p>Fluxo do FocaNaEJECT com tudo o que deve ser dito em cada momento da ligação. Siga os caminhos de cima para baixo; os botões coloridos levam ao próximo quadro.</p>
+  </div>
+  <div class="goal">O objetivo da ligação<strong>Marcar o Meet, não vender</strong></div>
+</header>
+
+<ul class="legend">
+  <li class="k-fala">Fala do assessor</li>
+  <li class="k-sucesso">Meet marcado</li>
+  <li class="k-conversa">Conversa sobre serviços e dores</li>
+  <li class="k-objecao">Objeção ou sem resposta</li>
+  <li class="k-retorno">Retorno agendado</li>
+  <li class="k-whats">WhatsApp</li>
+  <li class="k-descarte">Lead descartado</li>
+  <li class="k-registro">Encerramento e registro</li>
+</ul>
+<div class="keys">
+  <span><b class="chip-say">Diga</b> texto para falar ao lead</span>
+  <span><b class="chip-do">Faça</b> instrução para quem liga, não ler em voz alta</span>
+</div>
+
+<nav class="jumps" aria-label="Quadros do fluxo">
+  <a href="#q1">1. Abertura</a>
+  <a href="#q2">1.1 Fala com o lead</a>
+  <a href="#q3">1.1.2 Convite ao Meet</a>
+  <a href="#q4">1.2 Não fala com o lead</a>
+  <a href="#q5">Retorno, WhatsApp e encerramento</a>
+  <a href="#q6">Respostas a objeções</a>
+  <a href="#q7">Mensagens de WhatsApp</a>
+</nav>
+
+<!-- QUADRO 1 -->
+<section class="board" id="q1">
+  <h2>1. Abertura da ligação</h2>
+  <p class="sub">Toda ligação começa aqui. A primeira resposta define o caminho.</p>
+  <div class="canvas">
+    <div class="end-node">Início da ligação</div>
+    <div class="arrow"></div>
+    <div class="card k-fala">
+      <h3><span class="code">1</span>Ligação</h3>
+      <div class="body">
+        <div class="say">Olá, [BOM DIA / BOA TARDE]! Falo com [NOME DO LEAD]?</div>
+      </div>
+    </div>
+    <div class="stem"></div>
+    <div class="split">
+      <div class="branch k-objecao">
+        <span class="pill">Ninguém atende</span>
+        <div class="arrow"></div>
+        <div class="card k-objecao">
+          <h3><span class="code">0.1</span>Ninguém atende</h3>
+          <div class="body">
+            <div class="do">Faça até 3 tentativas em horários diferentes (manhã, tarde, outro dia). Depois da terceira, envie mensagem pelo WhatsApp.</div>
+            <a class="jump k-whats" href="#q7">Siga para a mensagem de ligação não efetiva</a>
+          </div>
+        </div>
+      </div>
+      <div class="branch k-descarte">
+        <span class="pill">Número errado</span>
+        <div class="arrow"></div>
+        <div class="card k-descarte">
+          <h3><span class="code">0.2</span>Número errado ou empresa não existe mais</h3>
+          <div class="body">
+            <div class="say">Peço desculpas pelo engano. Tenha um ótimo dia!</div>
+            <div class="do">Marque o lead como descartado no registro.</div>
+            <a class="jump k-registro" href="#q5">Siga para o registro</a>
+          </div>
+        </div>
+      </div>
+      <div class="branch k-fala">
+        <span class="pill">É o lead</span>
+        <div class="arrow"></div>
+        <div class="card k-fala">
+          <h3><span class="code">1.1</span>Fala com o lead</h3>
+          <div class="body">
+            <div class="do">Continue no quadro 1.1.</div>
+            <a class="jump k-fala" href="#q2">Siga para 1.1</a>
+          </div>
+        </div>
+      </div>
+      <div class="branch k-fala">
+        <span class="pill">Não é o lead</span>
+        <div class="arrow"></div>
+        <div class="card k-fala">
+          <h3><span class="code">1.2</span>Não fala com o lead</h3>
+          <div class="body">
+            <div class="do">Continue no quadro 1.2.</div>
+            <a class="jump k-fala" href="#q4">Siga para 1.2</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- QUADRO 2 -->
+<section class="board" id="q2">
+  <h2>1.1 Fala com o lead</h2>
+  <p class="sub">Peça permissão antes de se apresentar. Se o lead não tiver tempo, garanta um horário de retorno.</p>
+  <div class="canvas">
+    <div class="card k-fala wide">
+      <h3><span class="code">1.1</span>Fala com o lead</h3>
+      <div class="body">
+        <div class="say">Você teria alguns minutinhos para me ouvir?</div>
+        <div class="when">Se perguntar "do que se trata?" antes de aceitar:</div>
+        <div class="say">É rápido: sou da EJECT, empresa júnior da UFRN, e identifiquei algumas oportunidades na presença digital de vocês. Leva dois minutinhos.</div>
+      </div>
+    </div>
+    <div class="stem"></div>
+    <div class="split">
+      <div class="branch k-sucesso">
+        <span class="pill">Sim, tem tempo</span>
+        <div class="arrow"></div>
+        <div class="card k-fala">
+          <h3><span class="code">1.1.2</span>Apresentação e convite</h3>
+          <div class="body">
+            <div class="say">Meu nome é [NOME], sou da EJECT, empresa da UFRN que cria sites e sistemas web para empresas. Analisei a presença digital de vocês e vi algumas oportunidades de melhoria. Podemos marcar uma conversa rápida pelo Google Meet, sem compromisso, para eu te mostrar melhor?</div>
+            <a class="jump k-sucesso" href="#q3">Veja as respostas ao convite</a>
+          </div>
+        </div>
+      </div>
+      <div class="branch w2 k-retorno">
+        <span class="pill">Não tem tempo agora</span>
+        <div class="arrow"></div>
+        <div class="card k-retorno">
+          <h3><span class="code">1.1.3</span>Não tem tempo agora</h3>
+          <div class="body">
+            <div class="say">Sem problemas! Fica melhor eu te ligar hoje mais tarde ou amanhã pela manhã?</div>
+          </div>
+        </div>
+        <div class="stem"></div>
+        <div class="split">
+          <div class="branch k-retorno">
+            <span class="pill">Escolhe um horário</span>
+            <div class="arrow"></div>
+            <div class="card k-retorno">
+              <h3><span class="code">1.1.3.1</span>Sim</h3>
+              <div class="body">
+                <div class="say">Certo, nesse horário retornarei a ligação.</div>
+                <div class="do">Anote o horário e ligue nesse horário.</div>
+                <a class="jump k-retorno" href="#q5">Siga para retornos agendados</a>
+              </div>
+            </div>
+          </div>
+          <div class="branch k-whats">
+            <span class="pill">Não tem horário</span>
+            <div class="arrow"></div>
+            <div class="card k-whats">
+              <h3><span class="code">1.1.3.2</span>Não</h3>
+              <div class="body">
+                <div class="say">Já que o(a) senhor(a) não tem horário disponível, podemos continuar a conversa pelo WhatsApp?</div>
+                <div class="do">Anote o número e continue pelo WhatsApp.</div>
+                <a class="jump k-whats" href="#q5">Siga para 1.3 WhatsApp</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- QUADRO 3 -->
+<section class="board" id="q3">
+  <h2>1.1.2 Resposta ao convite para o Meet</h2>
+  <p class="sub">Depois da apresentação, o lead pode aceitar, querer conversar na hora ou recusar. Todo caminho volta ao convite.</p>
+  <div class="canvas">
+    <div class="card k-fala">
+      <h3><span class="code">1.1.2</span>Convite feito</h3>
+      <div class="body">
+        <div class="do">Ouça a resposta do lead e siga o caminho correspondente.</div>
+      </div>
+    </div>
+    <div class="stem"></div>
+    <div class="split">
+      <div class="branch k-sucesso">
+        <span class="pill">Aceita o Meet</span>
+        <div class="arrow"></div>
+        <div class="card k-sucesso">
+          <h3><span class="code">1.1.2.1</span>Aceita o Meet</h3>
+          <div class="body">
+            <div class="say">Perfeito! Qual dia e horário ficam melhor para você? … Para eu enviar o convite, qual é o seu melhor e-mail? E você consegue me confirmar seu número de WhatsApp para eu te mandar um lembrete?</div>
+            <div class="do">Anote data, horário, nome, e-mail e WhatsApp. Repita os dados para confirmar.</div>
+            <a class="jump k-registro" href="#q5">Siga para o encerramento</a>
+          </div>
+        </div>
+      </div>
+      <div class="branch k-conversa">
+        <span class="pill">Quer conversar agora</span>
+        <div class="arrow"></div>
+        <div class="card k-conversa">
+          <h3><span class="code">1.1.2.2</span>Serviços ou dores do negócio</h3>
+          <div class="body">
+            <div class="do">Aproveite o interesse, mas não transforme a ligação em reunião. Ouça, anote e use o que ouviu para reforçar o convite ao Meet.</div>
+            <div class="when">Se perguntar sobre os serviços:</div>
+            <div class="say">Claro! A EJECT desenvolve sites institucionais, landing pages e sistemas web sob medida, como plataformas de gestão, agendamento ou cadastro de clientes. Cada projeto é pensado a partir da necessidade da empresa. Me conta: o que você tem em mente para o seu negócio?</div>
+            <div class="when">Se começar a falar das dores, faça perguntas curtas:</div>
+            <div class="say"><ul>
+              <li>Hoje, como os clientes encontram vocês?</li>
+              <li>Qual é a maior dificuldade do dia a dia que você gostaria de resolver?</li>
+              <li>Tem algum processo que hoje é feito no papel, em planilha ou pelo WhatsApp e dá muito trabalho?</li>
+            </ul></div>
+            <div class="do">Anote as dores citadas. Depois de duas ou três respostas, conduza para o Meet.</div>
+            <div class="say">Pelo que você me contou, [RESUMA A DOR EM UMA FRASE], dá para pensar em uma solução bem específica para vocês. Para eu trazer algo concreto, vale a gente marcar o Meet com a equipe. Qual dia e horário ficam melhor para você?</div>
+            <div class="when">Se perguntar preço, prazo ou detalhes técnicos que você não sabe:</div>
+            <div class="say">Ótima pergunta! Isso a gente detalha no Meet, depois de entender melhor o que você precisa.</div>
+            <a class="jump k-sucesso" href="#q3">Se aceitar, siga para 1.1.2.1</a>
+          </div>
+        </div>
+      </div>
+      <div class="branch k-objecao">
+        <span class="pill">Recusa ou objeção</span>
+        <div class="arrow"></div>
+        <div class="card k-objecao">
+          <h3><span class="code">1.1.2.3</span>Recusa ou levanta uma objeção</h3>
+          <div class="body">
+            <div class="do">Responda com o quadro de Respostas a objeções e refaça o convite.</div>
+            <a class="jump k-objecao" href="#q6">Abrir respostas a objeções</a>
+            <div class="when">Após duas recusas:</div>
+            <div class="say">Sem problemas! Posso te mandar uma apresentação rápida pelo WhatsApp para você ver com calma?</div>
+            <a class="jump k-whats" href="#q5">Siga para 1.3 WhatsApp</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- QUADRO 4 -->
+<section class="board" id="q4">
+  <h2>1.2 Não fala com o lead</h2>
+  <p class="sub">Quem atendeu não é o lead. Descubra quando ligar de novo ou consiga outro contato.</p>
+  <div class="canvas">
+    <div class="card k-fala wide">
+      <h3><span class="code">1.2</span>Não fala com o lead</h3>
+      <div class="body">
+        <div class="when">Se a pessoa perguntar "quem fala?" ou "do que se trata?":</div>
+        <div class="say">É [NOME], da EJECT, empresa júnior da UFRN. É sobre a presença digital da empresa.</div>
+        <div class="say">Por acaso tem algum horário em que [NOME DO LEAD] se encontra?</div>
+      </div>
+    </div>
+    <div class="stem"></div>
+    <div class="split">
+      <div class="branch k-retorno">
+        <span class="pill">Sim, informa o horário</span>
+        <div class="arrow"></div>
+        <div class="card k-retorno">
+          <h3><span class="code">1.2.1</span>Sim</h3>
+          <div class="body">
+            <div class="say">Certo, retorno a ligação nesse horário.</div>
+            <div class="do">Anote esse horário e retorne nele.</div>
+            <a class="jump k-retorno" href="#q5">Siga para retornos agendados</a>
+          </div>
+        </div>
+      </div>
+      <div class="branch w2 k-fala">
+        <span class="pill">Não sabe o horário</span>
+        <div class="arrow"></div>
+        <div class="card k-fala">
+          <h3><span class="code">1.2.2</span>Não</h3>
+          <div class="body">
+            <div class="say">Teria como você me passar um meio de contato, um número ou um e-mail?</div>
+          </div>
+        </div>
+        <div class="stem"></div>
+        <div class="split">
+          <div class="branch k-fala">
+            <span class="pill">Passa o contato</span>
+            <div class="arrow"></div>
+            <div class="card k-fala">
+              <h3><span class="code">1.2.2.1</span>Sim</h3>
+              <div class="body">
+                <div class="say">Certo, pode me dizer.</div>
+                <div class="do">Anote o contato.</div>
+                <div class="say">Certo, obrigado(a)!</div>
+                <a class="jump k-registro" href="#q5">Siga para o encerramento</a>
+              </div>
+            </div>
+          </div>
+          <div class="branch k-fala">
+            <span class="pill">Não passa</span>
+            <div class="arrow"></div>
+            <div class="card k-fala">
+              <h3><span class="code">1.2.2.2</span>Não</h3>
+              <div class="body">
+                <div class="say">Certo, pode repassar meu número a ele(a)? Meu nome é [NOME], da EJECT, empresa júnior da UFRN.</div>
+                <div class="do">Repasse seu número.</div>
+                <div class="say">Obrigado(a)!</div>
+                <a class="jump k-registro" href="#q5">Siga para o encerramento</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- QUADRO 5 -->
+<section class="board" id="q5">
+  <h2>Retorno, WhatsApp e encerramento</h2>
+  <p class="sub">Para onde os caminhos levam. Toda ligação termina no encerramento e no registro.</p>
+  <div class="canvas">
+    <div class="split">
+      <div class="branch k-retorno">
+        <span class="pill">Retorno combinado</span>
+        <div class="arrow"></div>
+        <div class="card k-retorno">
+          <h3><span class="code">R</span>Retornos agendados</h3>
+          <div class="body">
+            <div class="do">Ligue exatamente no horário combinado e retome a conversa.</div>
+            <div class="say">Olá, [NOME DO LEAD]! Aqui é [NOME], da EJECT. Combinamos de conversar agora, você tem alguns minutinhos?</div>
+          </div>
+        </div>
+        <div class="stem"></div>
+        <div class="split">
+          <div class="branch k-sucesso">
+            <span class="pill">Disponível</span>
+            <div class="arrow"></div>
+            <div class="card k-fala">
+              <h3><span class="code">1.1.2</span>Apresentação</h3>
+              <div class="body">
+                <div class="do">Faça a apresentação e o convite ao Meet.</div>
+                <a class="jump k-fala" href="#q2">Siga para 1.1.2</a>
+              </div>
+            </div>
+          </div>
+          <div class="branch k-whats">
+            <span class="pill">Indisponível de novo</span>
+            <div class="arrow"></div>
+            <div class="card k-whats">
+              <h3><span class="code">R.2</span>Não agende de novo</h3>
+              <div class="body">
+                <div class="say">Sem problemas! Para não te atrapalhar, posso continuar nossa conversa pelo WhatsApp?</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="branch k-whats">
+        <span class="pill">Pediu WhatsApp</span>
+        <div class="arrow"></div>
+        <div class="card k-whats">
+          <h3><span class="code">1.3</span>Repasse para o WhatsApp</h3>
+          <div class="body">
+            <div class="do">Pode ser pedido pelo lead ou por outra pessoa. Confirme o número e use o Contato Pós Ligação Efetiva.</div>
+            <div class="say">Combinado! Vou te mandar uma mensagem agora mesmo. Esse número é o [NÚMERO], certo?</div>
+            <a class="jump k-whats" href="#q7">Abrir mensagens prontas</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="stem"></div>
+    <div class="arrow"></div>
+    <div class="card k-registro wide">
+      <h3><span class="code">E</span>Encerramento</h3>
+      <div class="body">
+        <div class="do">Use em todas as ligações, inclusive quando o lead recusar.</div>
+        <div class="when">Meet marcado:</div>
+        <div class="say">Combinado, [NOME DO LEAD]! O convite chega no seu e-mail e te mando um lembrete pelo WhatsApp. Obrigado(a) pelo seu tempo e até [DIA]!</div>
+        <div class="when">Sem Meet:</div>
+        <div class="say">Obrigado(a) pelo seu tempo, [NOME DO LEAD]! Se precisar, fico à disposição. Tenha um ótimo dia!</div>
+      </div>
+    </div>
+    <div class="arrow"></div>
+    <div class="card k-registro wide">
+      <h3><span class="code">✎</span>Registro da ligação</h3>
+      <div class="body">
+        <div class="do">Logo após cada ligação, preencha uma linha na planilha de controle. Os números coletados vão para a Gerente de Mkt e Com.</div>
+        <dl class="fields">
+          <dt>Lead / empresa</dt><dd>Nome do lead e da empresa</dd>
+          <dt>Tentativas</dt><dd>Quantas ligações já foram feitas</dd>
+          <dt>Status</dt><dd>Meet marcado, retornar, WhatsApp, recusou ou descartado</dd>
+          <dt>Retorno</dt><dd>Dia e horário combinados para ligar de novo</dd>
+          <dt>Contato coletado</dt><dd>Novo número, WhatsApp ou e-mail</dd>
+          <dt>Meet</dt><dd>Data, horário e e-mail do convite</dd>
+          <dt>Objeção</dt><dd>Principal objeção ouvida, se houver</dd>
+          <dt>Responsável</dt><dd>Quem fez a ligação</dd>
+        </dl>
+      </div>
+    </div>
+    <div class="arrow"></div>
+    <div class="end-node">Fim da ligação</div>
+  </div>
+</section>
+
+<!-- QUADRO 6 -->
+<section class="board" id="q6">
+  <h2>Respostas a objeções</h2>
+  <p class="sub">Use no 1.1.2.3. Acolha, responda e volte ao convite para o Meet. Depois de duas recusas, ofereça o WhatsApp.</p>
+  <div class="obj-grid">
+    <div class="card k-objecao"><h3>Confiança</h3><div class="body">
+      <div class="quote">"Como conseguiu meu número?"</div>
+      <div class="say">Encontrei o contato de vocês publicamente, no [Google / Instagram / site], enquanto analisava empresas da região.</div>
+    </div></div>
+    <div class="card k-objecao"><h3>Confiança</h3><div class="body">
+      <div class="quote">"Empresa júnior? São estudantes, né?"</div>
+      <div class="say">Somos estudantes da UFRN, sim, mas trabalhamos com processos de empresa e orientação de professores. Isso nos permite entregar com qualidade e um custo mais acessível.</div>
+    </div></div>
+    <div class="card k-objecao"><h3>Confiança</h3><div class="body">
+      <div class="quote">"Já trabalho com uma agência / freelancer"</div>
+      <div class="say">Que bom que vocês já investem nisso! O diagnóstico não tem compromisso, pode servir até como uma segunda opinião sobre o que já está sendo feito.</div>
+    </div></div>
+    <div class="card k-objecao"><h3>Necessidade</h3><div class="body">
+      <div class="quote">"Já tenho site"</div>
+      <div class="say">Ótimo, isso já é meio caminho! Muitas vezes o site existe mas não está trazendo clientes como poderia. No diagnóstico a gente olha justamente isso: o que já funciona e o que pode melhorar.</div>
+    </div></div>
+    <div class="card k-objecao"><h3>Necessidade</h3><div class="body">
+      <div class="quote">"Não preciso de site, uso só Instagram / WhatsApp"</div>
+      <div class="say">Faz sentido, muita gente vende bem por lá. A landing page complementa: aparece no Google para quem ainda não conhece vocês e passa mais credibilidade. Posso te mostrar como isso funcionaria no seu caso numa conversa rápida?</div>
+    </div></div>
+    <div class="card k-objecao"><h3>Necessidade</h3><div class="body">
+      <div class="quote">"Não tenho interesse"</div>
+      <div class="say">Entendo! Só por curiosidade, hoje como os novos clientes costumam chegar até vocês?</div>
+      <div class="do">Se abrir espaço, retome o convite. Se mantiver o não, ofereça o WhatsApp e encerre.</div>
+    </div></div>
+    <div class="card k-objecao"><h3>Dinheiro</h3><div class="body">
+      <div class="quote">"Quanto custa?"</div>
+      <div class="say">Depende muito do que o seu negócio precisa, por isso fazemos o diagnóstico antes. Aí conseguimos montar uma proposta que caiba na sua realidade.</div>
+    </div></div>
+    <div class="card k-objecao"><h3>Dinheiro</h3><div class="body">
+      <div class="quote">"Não tenho dinheiro / não é o momento"</div>
+      <div class="say">Entendo totalmente. A conversa é sem compromisso, e conhecer as oportunidades agora ajuda a planejar para quando for o momento. Podemos deixar marcado?</div>
+    </div></div>
+    <div class="card k-objecao"><h3>Decisão</h3><div class="body">
+      <div class="quote">"Preciso falar com meu sócio / gerente"</div>
+      <div class="say">Claro! Que tal marcarmos o Meet num horário em que ele também possa participar?</div>
+    </div></div>
+    <div class="card k-objecao"><h3>Decisão</h3><div class="body">
+      <div class="quote">"Manda por e-mail / WhatsApp que eu vejo"</div>
+      <div class="say">Mando sim! E já deixo uma sugestão de horário para o Meet, pode ser [DIA / HORA]?</div>
+      <div class="do">Se não aceitar, siga para o 1.3 WhatsApp.</div>
+    </div></div>
+  </div>
+</section>
+
+<!-- QUADRO 7 -->
+<section class="board" id="q7">
+  <h2>Mensagens de WhatsApp</h2>
+  <p class="sub">Mensagens prontas para enviar depois da ligação. Escolha o primeiro contato conforme o que aconteceu, depois siga pela resposta do lead. Toque em copiar e ajuste os campos entre colchetes.</p>
+  <div class="canvas">
+    <div class="card k-whats">
+      <h3><span class="code">W</span>Como foi o contato até aqui?</h3>
+      <div class="body"><div class="do">Escolha a mensagem de 1º contato que corresponde à situação.</div></div>
+    </div>
+    <div class="stem"></div>
+    <div class="split">
+      <div class="branch k-sucesso">
+        <span class="pill">Ligação efetiva</span>
+        <div class="arrow"></div>
+        <div class="card k-whats msgcard">
+          <h3><span class="code">W1</span>1º contato pós ligação efetiva</h3>
+          <div class="body">
+            <div class="do">Exemplo para uma clínica em que o serviço oferecido é uma landing page. Adapte ao negócio do lead.</div>
+            <div class="msg"><p>Oi, [BOM DIA / BOA TARDE]! Como comentei na ligação, estou entrando em contato por aqui para darmos continuidade à nossa conversa.</p><p>Estava analisando a presença digital da sua clínica e percebi que, atualmente, o Instagram é o principal canal de divulgação.</p><p>Embora as redes sociais sejam importantes, muitos tutores buscam informações de forma rápida e prática. Uma landing page, ou seja, uma página web exclusiva para a clínica, pode reunir tudo em um só lugar: serviços, especialidades, avaliações, localização, horários e um botão direto para o WhatsApp.</p><p>Além de transmitir mais credibilidade, ela facilita a jornada do tutor e torna o contato com a clínica mais rápido, aumentando as chances de novos agendamentos.</p><p>Acredito que seria uma solução interessante para a clínica. Que tal marcarmos uma conversa rápida via Google Meet para eu apresentar melhor a ideia e mostrar como ela poderia funcionar para vocês?</p></div>
+            <button class="copy" type="button">Copiar mensagem</button>
+          </div>
+        </div>
+      </div>
+      <div class="branch k-objecao">
+        <span class="pill">Ligação não efetiva</span>
+        <div class="arrow"></div>
+        <div class="card k-whats msgcard">
+          <h3><span class="code">W2</span>1º contato pós ligação não efetiva</h3>
+          <div class="body">
+            <div class="do">Use quando o lead não atendeu depois das tentativas.</div>
+            <div class="msg"><p>Oi, [BOM DIA / BOA TARDE]! Tudo bem?</p><p>Tentei falar com você por telefone há pouco, mas não consegui.</p><p>Meu nome é [NOME], sou da EJECT, empresa vinculada à UFRN. Há 16 anos, trabalhamos com o desenvolvimento de soluções digitais, como sites, landing pages, sistemas e chatbots, sempre buscando entender o que cada negócio realmente precisa.</p><p>Queria te apresentar um pouco melhor a EJECT e, aproveitando a conversa, fazer um diagnóstico rápido para conhecer melhor o seu negócio e entender onde podemos ajudar.</p><p>Que tal a gente marcar uma breve conversa via Google Meet?</p></div>
+            <button class="copy" type="button">Copiar mensagem</button>
+          </div>
+        </div>
+      </div>
+      <div class="branch k-fala">
+        <span class="pill">Primeiro contato</span>
+        <div class="arrow"></div>
+        <div class="card k-whats msgcard">
+          <h3><span class="code">W3</span>1º contato</h3>
+          <div class="body">
+            <div class="do">Use quando o primeiro contato com o lead for direto pelo WhatsApp.</div>
+            <div class="msg"><p>Olá, [BOM DIA / BOA TARDE]! Tudo bem?</p><p>Sou [NOME], assessor(a) da EJECT, empresa vinculada à UFRN.</p><p>Conheci seu perfil no Instagram e gostei bastante da forma como se comunicam e transmitem confiança nas redes.</p><p>Enquanto analisava o perfil, identifiquei algumas oportunidades que podem fortalecer ainda mais a presença digital da [NOME DA EMPRESA]. Nossa empresa desenvolve sites e landing pages personalizadas, ou seja, páginas virtuais interativas, com soluções acessíveis e alinhadas às necessidades de cada empresa.</p><p>Acredito que podemos agregar valor ao seu negócio. Você teria interesse em conhecer nosso trabalho?</p></div>
+            <button class="copy" type="button">Copiar mensagem</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="stem"></div>
+    <div class="arrow"></div>
+    <div class="card k-whats">
+      <h3><span class="code">W</span>O lead respondeu?</h3>
+      <div class="body"><div class="do">Siga pela resposta. Se não houver retorno, envie a próxima mensagem da sequência em outro dia.</div></div>
+    </div>
+    <div class="stem"></div>
+    <div class="split">
+      <div class="branch k-conversa">
+        <span class="pill">Quer conhecer o trabalho</span>
+        <div class="arrow"></div>
+        <div class="card k-conversa msgcard">
+          <h3><span class="code">W4</span>2º contato com resposta</h3>
+          <div class="body">
+            <div class="msg"><p>A EJECT atua há 16 anos no mercado, desenvolvendo soluções digitais personalizadas para diferentes necessidades. Trabalhamos com sites, landing pages, páginas web interativas, sistemas e chatbots, sempre buscando entender os objetivos e desafios de cada cliente para desenvolver uma solução que realmente faça sentido para o seu negócio.</p><p>Para você conhecer um pouco mais do nosso trabalho, vou te enviar também o nosso portfólio, com alguns dos projetos que já desenvolvemos.</p><p><a href="https://eject-ufrn.vercel.app/" target="_blank" rel="noopener">https://eject-ufrn.vercel.app/</a></p><p>O que achou dos nossos trabalhos? Podemos marcar uma breve conversa para te apresentar melhor nossas soluções e entender o que podemos fazer pelo seu negócio?</p></div>
+            <button class="copy" type="button">Copiar mensagem</button>
+          </div>
+        </div>
+      </div>
+      <div class="branch k-conversa">
+        <span class="pill">Quer ideias de presença digital</span>
+        <div class="arrow"></div>
+        <div class="card k-conversa msgcard">
+          <h3><span class="code">W5</span>2º contato com resposta</h3>
+          <div class="body">
+            <div class="do">Exemplo para um restaurante em que o serviço oferecido é uma landing page. Adapte ao negócio do lead.</div>
+            <div class="msg"><p>Estava analisando a presença digital da sua empresa e percebi que, atualmente, o principal canal de divulgação é o Instagram.</p><p>Embora as redes sociais sejam muito importantes, muitos clientes procuram informações de forma rápida e podem acabar se perdendo entre as muitas opções disponíveis. Uma landing page, isto é, uma página web interativa, um espaço exclusivo para o seu negócio, pode reunir tudo isso em um só lugar: informações sobre o restaurante, destaques do cardápio, avaliação dos clientes, localização, horário de funcionamento e um botão direto para o WhatsApp.</p><p>Além de transmitir mais profissionalismo, ela facilita a decisão de quem está conhecendo o estabelecimento pela primeira vez, aumentando as chances de converter visitantes em novos clientes.</p><p>Podemos marcar uma conversa pelo Google Meet para fazermos um diagnóstico e entendermos melhor as necessidades do seu negócio?</p></div>
+            <button class="copy" type="button">Copiar mensagem</button>
+          </div>
+        </div>
+      </div>
+      <div class="branch k-objecao">
+        <span class="pill">Sem resposta</span>
+        <div class="arrow"></div>
+        <div class="card k-objecao msgcard">
+          <h3><span class="code">W6</span>2º contato sem resposta</h3>
+          <div class="body">
+            <div class="msg"><p>Oi, [BOM DIA / BOA TARDE], tudo bem?</p><p>Vi que talvez minha mensagem anterior tenha passado despercebida, então resolvi retomar o contato.</p><p>Gostaria de saber se faz sentido para você conhecer algumas ideias para fortalecer sua presença digital. Caso este não seja o momento ideal, teria algum horário em que seria melhor eu entrar em contato?</p></div>
+            <button class="copy" type="button">Copiar mensagem</button>
+          </div>
+        </div>
+        <div class="arrow"></div>
+        <span class="pill">Ainda sem resposta</span>
+        <div class="arrow"></div>
+        <div class="card k-objecao msgcard">
+          <h3><span class="code">W7</span>3º contato sem resposta</h3>
+          <div class="body">
+            <div class="msg"><p>Oi, [BOM DIA / BOA TARDE], [NOME DO LEAD]!</p><p>Estou organizando minha agenda desta semana e queria reservar um momento para conversar com vocês.</p><p>Acredito que pode ser um bate-papo bem produtivo para entender melhor o momento da empresa e apresentar, com mais detalhes, como nosso serviço pode ajudar.</p><p>Se ainda fizer sentido, me responde por aqui assim que vir esta mensagem que alinhamos um horário.</p></div>
+            <button class="copy" type="button">Copiar mensagem</button>
+          </div>
+        </div>
+        <div class="arrow"></div>
+        <span class="pill">Ainda sem resposta</span>
+        <div class="arrow"></div>
+        <div class="card k-descarte msgcard">
+          <h3><span class="code">W8</span>4º contato sem resposta</h3>
+          <div class="body">
+            <div class="do">Última mensagem da sequência. Depois dela, registre o lead como sem retorno.</div>
+            <div class="msg"><p>Oi, [BOM DIA / BOA TARDE], [NOME DO LEAD]! Tudo certo?</p><p>Imagino que você esteja com outras prioridades no momento. Ainda assim, acredito que poderíamos construir bons resultados juntos, principalmente entendendo melhor o momento da [NOME DA EMPRESA] e como a EJECT poderia ajudar com soluções digitais estratégicas.</p><p>Não quero ser um incômodo para você, então vou parar de falar por aqui por enquanto.</p><p>De qualquer forma, fico à disposição caso queira retomar a conversa. Pode me chamar por aqui mesmo ou pelo meu e-mail: [SEU E-MAIL].</p><p>Obrigado(a) pela atenção!</p></div>
+            <button class="copy" type="button">Copiar mensagem</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="stem"></div>
+    <div class="arrow"></div>
+    <div class="card k-sucesso">
+      <h3><span class="code">✓</span>Lead aceitou o Meet</h3>
+      <div class="body">
+        <div class="do">Combine data, horário e e-mail para o convite e preencha o registro da ligação.</div>
+        <a class="jump k-registro" href="#q5">Siga para o registro</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+</div>
+<script>
+(function(){
+  function fallbackCopy(text){
+    var ta=document.createElement('textarea');
+    ta.value=text;ta.setAttribute('readonly','');
+    ta.style.position='fixed';ta.style.opacity='0';
+    document.body.appendChild(ta);ta.select();
+    var ok=false;try{ok=document.execCommand('copy');}catch(e){}
+    document.body.removeChild(ta);return ok;
+  }
+  function flag(btn,ok){
+    btn.textContent=ok?'Copiada':'Selecione e copie';
+    if(ok)btn.classList.add('done');
+    setTimeout(function(){btn.textContent='Copiar mensagem';btn.classList.remove('done');},1800);
+  }
+  document.querySelectorAll('.copy').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      var msg=btn.parentElement.querySelector('.msg');
+      var text=Array.prototype.map.call(msg.querySelectorAll('p'),function(p){return p.innerText.trim();}).join('\n\n');
+      if(navigator.clipboard&&navigator.clipboard.writeText){
+        navigator.clipboard.writeText(text).then(function(){flag(btn,true);},function(){flag(btn,fallbackCopy(text));});
+      }else{flag(btn,fallbackCopy(text));}
+    });
+  });
+})();
+</script>
+</body>
+</html>

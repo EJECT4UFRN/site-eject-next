@@ -350,4 +350,24 @@ export const ProSempre = styled.section`
       }
     }
   }
+  
+  @media (max-width: 350px) {
+    > div {
+      .logo-pro-sempre {
+        span {
+          left: 200px;
+        }
+      }
+    }
+  }
+
+  @media (max-width:340px) {
+    > div {
+      .logo-pro-sempre {
+        span {
+          left: 180px;
+        }
+      }
+    }
+  }
 `;

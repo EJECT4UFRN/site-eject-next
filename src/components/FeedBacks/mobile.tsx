@@ -52,7 +52,7 @@ export function ContentMobile({ depositions }: FeedBacksProps) {
           className={`${isSelectedOne && "selected"}`}
         >
           <img
-            src={`${first.imagem}`}
+            src={`${first?.imagem}`} 
             alt="profile"
           />
         </button>
@@ -61,7 +61,7 @@ export function ContentMobile({ depositions }: FeedBacksProps) {
           className={`${isSelectedTwo && "selected"}`}
         >
           <img
-            src={second.imagem}
+            src={second?.imagem}
             alt="profile"
           />
         </button>
@@ -70,27 +70,27 @@ export function ContentMobile({ depositions }: FeedBacksProps) {
           className={`${isSelectedThree && "selected"}`}
         >
           <img
-            src={three.imagem}
+            src={three?.imagem}
             alt="profile"
           />
         </button>
         {isSelectedOne && (
-          <FeedBox key={first.id}>
-            <p>{first.comentario}</p>
-            <h3>{first.nome}</h3>
+          <FeedBox key={first?.id}>
+            <p>{first?.comentario}</p>
+            <h3>{first?.nome}</h3>
           </FeedBox>
         )}
         {isSelectedTwo && (
-          <FeedBox key={second.id}>
-            <p>{second.comentario}</p>
-            <h3>{second.nome}</h3>
+          <FeedBox key={second?.id}>
+            <p>{second?.comentario}</p>
+            <h3>{second?.nome}</h3>
           </FeedBox>
         )}
 
         {isSelectedThree && (
-          <FeedBox key={three.id}>
-            <p>{three.comentario}</p>
-            <h3>{three.nome}</h3>
+          <FeedBox key={three?.id}>
+            <p>{three?.comentario}</p>
+            <h3>{three?.nome}</h3>
           </FeedBox>
         )}
       </Wrapper>

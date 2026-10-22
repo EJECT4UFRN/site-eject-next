@@ -160,4 +160,8 @@ export const SwiperContainer = styled.div`
   @media (max-width: 440px) {
     transform: scale(0.9) translateY(-80px);
   }
+
+  @media (max-width: 330px) {
+
+  }
 `;

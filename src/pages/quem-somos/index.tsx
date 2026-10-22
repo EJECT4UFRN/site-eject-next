@@ -60,9 +60,8 @@ export default function AboutUs({
   recognition,
   team,
   edition,
-  teamImage,
 }) {
-  const [first, last] = textContent?.phrase;
+  const [first, last] = textContent.phrase;
 
   return (
     <Layout>
@@ -79,17 +78,17 @@ export default function AboutUs({
           </div>
           <div>
             <p>
-              {first?.paragrafo} || "A EJECT foi fundada em 15 de julho de 2010 e é formada por alunos da UFRN focados em desenvolver suas habilidades através da entrega de projetos com alta qualidade por um preço abaixo do mercado."
+              {first.paragrafo}
               <br />
               <br />
-              {last?.paragrafo} || "A Empresa Júnior da Escola de Ciências e Tecnologia da UFRN, a EJECT, é uma empresa do Rio Grande do Norte que trabalha diretamente com a inserção de pequenas, médias e grandes empresas no meio digital, oferecendo, por meio de seus projetos, soluções digitais para diversos modelos de negócio."
+              {last.paragrafo}
             </p>
           </div>
         </TextContent>
         <Image
           width={2982}
           height={1000}
-          src={teamImage.image}
+          src="/images/back-equipe.png"
           alt="Fotos dos membros da Eject"
         />
         {vision.map((vis) => (
@@ -153,31 +152,31 @@ export const getStaticProps: GetStaticProps = async () => {
   `);
   const [content] = data;
 
-  const [values] = content?.valores || [];
+  const [values] = content.valores;
 
   return {
     props: {
       hero: {
-        title: content?.titulo || "Quem Somos",
+        title: content.titulo,
       },
       textContent: {
-        subTitle: content?.subtitulo || "",
-        phrase: content?.paragrafo || [], 
+        subTitle: content.subtitulo,
+        phrase: content.paragrafo,
       },
       teamImage: {
-        image: content?.foto_galera || "/imagens/soueject.jpeg",
+        image: content.foto_galera,
       },
-      team: content?.equipe || [],
-      vision: content?.visao || [],
-      ourValues: content?.valores || [],
-      recognition: content?.reconhecimentos?.map((values) => {
+      team: content.equipe,
+      vision: content.visao,
+      ourValues: content.valores,
+      recognition: content.reconhecimentos.map((values) => {
         return {
-          id: values.id ?? null,
-          year: values.ano ?? "",
-          trophies: values.reconhecimento ?? "",
+          id: values.id,
+          year: values.ano,
+          trophies: values.reconhecimento,
         };
-      }) || [],
-      edition: proSempreEdition?.edicao || "",
+      }),
+      edition: proSempreEdition.edicao,
     },
     revalidate: 60 * 5,
   };

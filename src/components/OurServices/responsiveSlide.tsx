@@ -15,6 +15,7 @@ SwiperCore.use([Pagination, Navigation]);
 import { SwiperContainer, CardSwiper } from './styles';
 
 export default function ResponsiveSlide({ services }) {
+  console.log('services:', services);
   const params = {
     navigation: {
       nextEl: '.swiper-button-next',
