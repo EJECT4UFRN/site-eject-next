@@ -117,7 +117,7 @@ export const getStaticProps: GetStaticProps = async () => {
       diagnostico,
       missao,
       parceiros,
-      portifolio: portifolio[0],
+      portifolio: portifolio[0] ?? null,
       services,
       postContent: postsFormatted,
     },

@@ -34,11 +34,14 @@ export function Hero({ content }: HeroProps) {
         <Figure back={content.background}>
           <div>
             <motion.span variants={variants} initial="hidden" animate="visible">
-              <Image
-                height={1218}
-                width={1293}
-                src="/images/fotomalu.png"
-                alt="Mulher segurando tablet"
+              <img
+                height={405} 
+                width={500}
+                src={content?.people || '/images/joao-samara-banner-inicial.webp'}
+                alt="Membros da Eject segurando notebook e prancheta"
+                onError={(e) => {
+                  e.currentTarget.src = '/images/joao-samara-banner-inicial.webp';
+                }}
               />
             </motion.span>
           </div>

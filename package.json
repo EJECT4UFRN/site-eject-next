@@ -23,7 +23,7 @@
     "nextjs-progressbar": "^0.0.11",
     "node-css": "^0.1.0",
     "prismic-dom": "^2.2.6",
-    "react": "17.0.2",
+    "react": ">= 0.14.0 < 17.0.0-0",
     "react-card-flip": "^1.1.1",
     "react-confetti": "^6.0.1",
     "react-cookie-consent": "^8.0.1",
@@ -46,7 +46,7 @@
     "@types/react-input-mask": "^3.0.0",
     "@types/styled-components": "^5.1.9",
     "babel-plugin-styled-components": "^1.12.0",
-    "typescript": "^4.3.2"
+    "typescript": "4.9"
   },
   "resolutions": {
     "styled-components": "^5"
